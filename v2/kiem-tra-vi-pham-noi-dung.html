@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiểm Tra Nội Dung Vi Phạm Chính Sách | Người Trao Giải Pháp</title>
+<link rel="icon" type="image/png" href="favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,700;0,900;1,600&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F1E2; --paper-2:#EFE7CF; --ink:#1F3A5C; --ink-dark:#152840;
+  --stamp:#B23A20; --stamp-dark:#8C2B17; --gold:#B8862B; --charcoal:#2B2620;
+  --line:#CBBE9C; --white:#FFFBF3; --good:#2F6B3E;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{background:var(--paper); color:var(--charcoal); font-family:'Be Vietnam Pro',sans-serif; line-height:1.5; padding-bottom:60px;}
+h1,h2,h3,h4{font-family:'Bitter',serif;}
+.mono{font-family:'Space Mono',monospace;}
+.wrap{max-width:760px; margin:0 auto; padding:0 20px;}
+header{background:var(--ink); color:var(--white); padding:18px 0; border-bottom:3px solid var(--stamp); margin-bottom:34px;}
+header .wrap{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+.brand{font-weight:700; font-size:0.95rem;}
+.brand small{display:block; font-size:0.68rem; opacity:0.75; font-family:'Space Mono',monospace;}
+.back{color:var(--white); text-decoration:none; font-size:0.82rem; border-bottom:1px dashed rgba(255,255,255,0.5);}
+
+h1.title{font-size:clamp(1.5rem,4vw,2rem); color:var(--ink-dark); margin-bottom:8px;}
+.subtitle{color:#5c5647; margin-bottom:26px; max-width:60ch;}
+
+.notice{
+  background:var(--paper-2); border:1.5px dashed var(--gold); padding:16px 18px; margin-bottom:26px; font-size:0.86rem; color:#4a4437;
+}
+.notice b{color:var(--stamp-dark);}
+.notice ul{margin:8px 0 0; padding-left:20px;}
+.notice li{margin-bottom:5px;}
+
+.panel{background:var(--white); border:1.5px solid var(--charcoal); padding:24px 22px; margin-bottom:24px; position:relative;}
+.panel::after{content:""; position:absolute; inset:6px; border:1px dashed var(--line); pointer-events:none;}
+.panel h3{font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; font-family:'Space Mono',monospace; color:var(--stamp); margin-bottom:18px; border-bottom:1px dashed var(--line); padding-bottom:10px;}
+
+.field{margin-bottom:16px;}
+label{display:block; font-size:0.84rem; font-weight:600; margin-bottom:6px; color:var(--ink-dark);}
+input[type=text],input[type=password],textarea,select{
+  width:100%; padding:11px 12px; border:1.5px solid var(--line); background:var(--paper);
+  font-family:inherit; font-size:0.95rem; color:var(--charcoal); border-radius:2px;
+}
+textarea{min-height:120px; resize:vertical; font-family:'Be Vietnam Pro',sans-serif;}
+input:focus,textarea:focus,select:focus{outline:none; border-color:var(--stamp);}
+.hint{font-size:0.76rem; color:#8a8270; margin-top:6px;}
+.hint a{color:var(--stamp-dark);}
+.row{display:flex; gap:10px; flex-wrap:wrap;}
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:11px 18px; border-radius:3px;
+  font-weight:700; font-size:0.86rem; cursor:pointer; border:none; text-decoration:none;
+}
+.btn-stamp{background:var(--stamp); color:var(--white); box-shadow:3px 3px 0 var(--stamp-dark); transition:transform .12s ease;}
+.btn-stamp:hover{transform:translate(-1px,-1px);}
+.btn-stamp:disabled{opacity:.6; cursor:default; transform:none;}
+.btn-outline{background:transparent; color:var(--ink-dark); border:1.5px solid var(--charcoal);}
+.btn-lg{padding:14px 24px; font-size:0.95rem;}
+.btn-good{background:var(--good); color:var(--white); box-shadow:3px 3px 0 #1e4d2b;}
+.btn-good:hover{transform:translate(-1px,-1px);}
+.btn-good.copied{background:#1e4d2b;}
+
+.preview{max-width:220px; border-radius:2px; border:1.5px solid var(--line); margin-top:10px; display:none;}
+.status{margin-top:14px; font-size:0.85rem; color:#6b6353; min-height:1.2em; white-space:pre-wrap;}
+.status.error{color:var(--stamp-dark); font-weight:600;}
+
+.result{background:var(--white); border:1.5px solid var(--charcoal); border-radius:2px; padding:20px 22px; margin-top:18px; font-size:0.95rem; display:none; position:relative;}
+.result::after{content:""; position:absolute; inset:6px; border:1px dashed var(--line); pointer-events:none;}
+.result-disclaimer{font-size:0.78rem; color:#8a8270; margin-top:10px; font-style:italic;}
+
+.risk-badge{display:inline-block; padding:6px 16px; border-radius:20px; font-weight:700; font-family:'Space Mono',monospace; font-size:0.8rem; margin-bottom:14px; position:relative; z-index:1;}
+.risk-safe{background:#DDEBD9; color:var(--good);}
+.risk-review{background:#F6E9C9; color:var(--gold);}
+.risk-high{background:#F5DCD3; color:var(--stamp);}
+
+.content-highlight{background:var(--paper-2); border:1.5px solid var(--line); border-radius:2px; padding:14px 16px; margin:4px 0 16px; position:relative; z-index:1;}
+.content-highlight-label{font-family:'Space Mono',monospace; font-size:0.7rem; font-weight:700; color:#6b6353; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;}
+.content-highlight-body{font-size:0.92rem; white-space:pre-wrap;}
+mark.viol-term{background:#F6E9C9; color:var(--stamp-dark); padding:1px 4px; border-radius:2px; font-weight:700;}
+
+.optimized-box{background:#EAF3EB; border:1.5px solid var(--good); border-radius:2px; padding:16px 18px; margin:16px 0 4px; position:relative; z-index:1;}
+.optimized-label{font-family:'Space Mono',monospace; font-size:0.74rem; font-weight:700; color:var(--good); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px; display:flex; align-items:center; gap:6px;}
+.optimized-body{font-size:0.95rem; white-space:pre-wrap; color:var(--charcoal); background:var(--white); border:1px solid #cfe2d1; border-radius:2px; padding:14px; margin-bottom:12px;}
+
+.result-explain{position:relative; z-index:1;}
+.result-explain p{margin:0 0 10px;}
+.result-explain strong{color:var(--ink-dark);}
+
+footer{text-align:center; font-size:0.8rem; color:#8a8270; margin-top:40px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">Võ Hồng Thắng — Người Trao Giải Pháp<small>KIỂM TRA VI PHẠM CHÍNH SÁCH (FACEBOOK/META)</small></div>
+    <a class="back" href="index.html">← Về trang chủ</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <h1 class="title">Kiểm Tra Nội Dung Vi Phạm Chính Sách (Facebook/Meta)</h1>
+  <p class="subtitle">Dán bài viết hoặc caption trước khi đăng — AI chỉ ra từ ngữ dễ vi phạm chính sách Meta, tô vàng đúng chỗ, và viết sẵn một bài đã tối ưu, sẵn sàng đăng ngay.</p>
+
+  <div class="notice">
+    <b>Đọc trước khi dùng:</b>
+    <ul>
+      <li>Công cụ cần một <b>khoá API Google Gemini miễn phí</b> của riêng anh/chị — lấy tại <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>. Khoá chỉ lưu trên trình duyệt của máy đang dùng, không gửi cho ai khác.</li>
+      <li>Đây là công cụ <b>hỗ trợ tự kiểm tra trước khi đăng</b> — dựa trên đánh giá của AI theo các nhóm chính sách phổ biến của Meta, <b>không phải kết quả chính thức từ Facebook</b> và không thể thay thế quyết định kiểm duyệt thật của nền tảng.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>① Khoá API</h3>
+    <div class="field">
+      <label>Khoá API Gemini</label>
+      <input type="password" id="apiKey" placeholder="Dán khoá API vào đây">
+      <div class="hint">Lấy miễn phí tại <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a></div>
+    </div>
+    <div class="row">
+      <button class="btn btn-outline" onclick="saveKey()">Lưu khoá trên máy này</button>
+      <button class="btn btn-outline" onclick="clearKey()">Xoá khoá đã lưu</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>② Nội dung cần kiểm tra</h3>
+    <div class="field">
+      <label>Loại nội dung</label>
+      <select id="contentType">
+        <option>Bài viết Fanpage / cá nhân</option>
+        <option>Caption Reels / video ngắn</option>
+        <option>Nội dung quảng cáo (Ads)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Nội dung / caption</label>
+      <textarea id="contentText" placeholder="Dán nội dung bài viết hoặc caption vào đây...">Giảm 10kg trong 7 ngày không cần ăn kiêng! Uống ngay viên giảm cân thần kỳ, cam kết hoàn tiền 100% nếu không hiệu quả. Inbox ngay để nhận ưu đãi hôm nay!</textarea>
+    </div>
+    <div class="field">
+      <label>Ảnh đính kèm (không bắt buộc)</label>
+      <input type="file" id="photoInput" accept="image/*">
+      <img id="preview" class="preview">
+    </div>
+    <div class="field">
+      <label>Tên model</label>
+      <input type="text" id="modelName" value="gemini-3.6-flash">
+      <div class="hint">Nếu gặp lỗi "model không còn khả dụng", Google API sẽ báo luôn tên model mới trong thông báo lỗi — sửa lại ở đây mà không cần đổi cả trang.</div>
+    </div>
+  </div>
+
+  <button class="btn btn-stamp btn-lg" id="checkBtn" onclick="checkContent()">✓ Kiểm Tra Nội Dung</button>
+  <div class="status" id="status"></div>
+  <div class="result" id="result"></div>
+  <div class="result-disclaimer" id="resultDisclaimer" style="display:none;">Đánh giá và bài viết tối ưu đều do AI tạo ra, chỉ mang tính tham khảo — anh/chị nên đọc lại trước khi đăng, quyết định cuối cùng luôn thuộc về chính sách thật của Meta/Facebook tại thời điểm đăng.</div>
+
+  <footer>Công cụ thuộc kho giải pháp của Võ Hồng Thắng — Người Trao Giải Pháp Tinh Gọn.</footer>
+</div>
+
+<script>
+"use strict";
+const KEY_STORAGE = "thangvo_gemini_api_key";
+
+document.getElementById("apiKey").value = localStorage.getItem(KEY_STORAGE) || "";
+
+function saveKey(){
+  const v = document.getElementById("apiKey").value.trim();
+  if (!v) { setStatus("Chưa nhập khoá API.", true); return; }
+  try {
+    localStorage.setItem(KEY_STORAGE, v);
+    setStatus("Đã lưu khoá trên máy này.");
+  } catch (e) {
+    setStatus("Không lưu được (trình duyệt chặn lưu trữ). Vẫn có thể dùng trong phiên này.", true);
+  }
+}
+function clearKey(){
+  localStorage.removeItem(KEY_STORAGE);
+  document.getElementById("apiKey").value = "";
+  setStatus("Đã xoá khoá đã lưu.");
+}
+
+let photoBase64 = null, photoMime = null;
+document.getElementById("photoInput").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) { photoBase64 = null; return; }
+  photoMime = file.type || "image/jpeg";
+  const reader = new FileReader();
+  reader.onload = () => {
+    photoBase64 = reader.result.split(",")[1];
+    const img = document.getElementById("preview");
+    img.src = reader.result;
+    img.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+});
+
+function setStatus(text, isError){
+  const el = document.getElementById("status");
+  el.textContent = text;
+  el.className = "status" + (isError ? " error" : "");
+}
+
+const SYSTEM_PROMPT = `Bạn là chuyên gia kiểm duyệt nội dung, hiểu rõ Tiêu chuẩn Cộng đồng của Meta (Facebook/Instagram). Đánh giá nội dung bên dưới theo các nhóm chính sách phổ biến: ngôn từ gây thù ghét, bạo lực/kích động, nội dung người lớn hoặc khoả thân, spam/lừa đảo, quảng cáo sai sự thật (đặc biệt cam kết y tế/giảm cân/kiếm tiền phi thực tế), sản phẩm bị hạn chế (thuốc, chất kích thích, vũ khí, rượu bia với trẻ vị thành niên), thông tin sai lệch, và vi phạm bản quyền.
+
+Trả lời CHÍNH XÁC theo định dạng sau bằng tiếng Việt, không thêm phần nào khác:
+
+MỨC ĐỘ RỦI RO: [An toàn / Cần xem lại / Rủi ro cao]
+NHÓM VI PHẠM CÓ THỂ GẶP: [liệt kê ngắn gọn, hoặc "Không phát hiện" nếu an toàn]
+TỪ/CỤM TỪ VI PHẠM: [liệt kê các từ hoặc cụm từ lấy NGUYÊN VĂN, chính xác từng ký tự từ nội dung cần kiểm tra bên dưới, có khả năng gây vi phạm, cách nhau bởi dấu phẩy; nếu an toàn thì ghi "Không có"]
+GIẢI THÍCH: [2-4 câu giải thích lý do]
+GỢI Ý CHỈNH SỬA: [gợi ý cụ thể để nội dung an toàn hơn, hoặc "Không cần chỉnh sửa" nếu an toàn]
+BÀI VIẾT ĐÃ TỐI ƯU: [LUÔN viết lại TOÀN BỘ nội dung thành một bài hoàn chỉnh, sẵn sàng đăng ngay, giữ nguyên ý định, thông điệp cốt lõi, giọng văn và lời kêu gọi hành động (CTA) của bài gốc, nhưng đã bỏ hết các từ ngữ/cam kết vi phạm chính sách và thay bằng cách diễn đạt an toàn, trung thực, vẫn thuyết phục. Nếu bài gốc đã an toàn thì chỉ trau chuốt nhẹ cho hay hơn, không đổi ý nghĩa. Đây là phần bắt buộc, không được bỏ trống hoặc chỉ ghi "không cần".]
+
+Nội dung cần kiểm tra (loại: {{TYPE}}):
+"""
+{{TEXT}}
+"""`;
+
+async function checkContent(){
+  const apiKey = document.getElementById("apiKey").value.trim();
+  const text = document.getElementById("contentText").value.trim();
+  const type = document.getElementById("contentType").value;
+  const btn = document.getElementById("checkBtn");
+  const resultEl = document.getElementById("result");
+  const disclaimerEl = document.getElementById("resultDisclaimer");
+
+  if (!apiKey) { setStatus("Chưa nhập khoá API Gemini ở mục 1.", true); return; }
+  if (!text) { setStatus("Chưa nhập nội dung cần kiểm tra ở mục 2.", true); return; }
+
+  btn.disabled = true;
+  resultEl.style.display = "none";
+  disclaimerEl.style.display = "none";
+  setStatus("Đang phân tích nội dung, vui lòng chờ...");
+
+  const prompt = SYSTEM_PROMPT.replace("{{TYPE}}", type).replace("{{TEXT}}", text);
+  const parts = [{ text: prompt }];
+  if (photoBase64) parts.push({ inline_data: { mime_type: photoMime, data: photoBase64 } });
+
+  const model = document.getElementById("modelName").value.trim() || "gemini-3.6-flash";
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+  try {
+    const resp = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contents: [{ parts }] }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) {
+      let msg = (data && data.error && data.error.message) ? data.error.message : ("Lỗi HTTP " + resp.status);
+      if (/no longer available|not found/i.test(msg)) msg += "\n→ Sửa ô \"Tên model\" ở mục 2 theo tên model mà thông báo lỗi vừa gợi ý, rồi bấm Kiểm tra lại.";
+      setStatus("Lỗi từ Gemini API: " + msg, true);
+      btn.disabled = false;
+      return;
+    }
+    const rawText = data?.candidates?.[0]?.content?.parts?.map(p => p.text).filter(Boolean).join("\n");
+    if (!rawText) {
+      setStatus("AI không trả về nội dung. Thử lại.", true);
+      btn.disabled = false;
+      return;
+    }
+    renderResult(rawText, text);
+    setStatus("Xong.");
+  } catch (err) {
+    setStatus("Không gọi được API (kiểm tra mạng hoặc khoá API): " + err.message, true);
+  }
+  btn.disabled = false;
+}
+
+let lastOptimizedText = "";
+
+function renderResult(rawText, originalText){
+  const resultEl = document.getElementById("result");
+  const disclaimerEl = document.getElementById("resultDisclaimer");
+
+  const riskLineMatch = rawText.match(/MỨC ĐỘ RỦI RO:\s*(.*)/i);
+  const riskLine = riskLineMatch ? riskLineMatch[1] : rawText;
+  let badgeClass = "risk-review", badgeText = "Cần xem lại";
+  if (/An toàn/i.test(riskLine)) { badgeClass = "risk-safe"; badgeText = "An toàn"; }
+  else if (/Rủi ro cao/i.test(riskLine)) { badgeClass = "risk-high"; badgeText = "Rủi ro cao"; }
+
+  const termMatch = rawText.match(/TỪ\/CỤM TỪ VI PHẠM:\s*(.*)/i);
+  let terms = [];
+  if (termMatch && termMatch[1]) {
+    const rawTerms = termMatch[1].trim();
+    if (rawTerms && !/^(không\s*có\.?|không phát hiện\.?|không\.?|"?không có"?)$/i.test(rawTerms)) {
+      terms = rawTerms.split(/[,;]/).map(t => t.trim().replace(/^["'“”\[]+|["'“”\].]+$/g, "")).filter(Boolean);
+    }
+  }
+
+  const optimizedMatch = rawText.match(/BÀI VIẾT ĐÃ TỐI ƯU[^:]*:\s*([\s\S]*)/i);
+  const optimizedText = optimizedMatch ? optimizedMatch[1].trim().replace(/^["'“”]+|["'“”]+$/g, "") : "";
+  lastOptimizedText = optimizedText;
+
+  const displayText = rawText
+    .replace(/^TỪ\/CỤM TỪ VI PHẠM:.*$/mi, "")
+    .replace(/BÀI VIẾT ĐÃ TỐI ƯU[\s\S]*$/i, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+
+  let html = `<span class="risk-badge ${badgeClass}">${badgeText}</span>`;
+
+  if (terms.length && originalText) {
+    const highlightedOriginal = highlightTerms(escapeHtml(originalText), terms);
+    html += `<div class="content-highlight"><div class="content-highlight-label">Nội dung đã kiểm tra — từ/cụm từ nghi vi phạm được tô vàng</div><div class="content-highlight-body">${highlightedOriginal}</div></div>`;
+  }
+
+  let explanationHtml = escapeHtml(displayText);
+  if (terms.length) explanationHtml = highlightTerms(explanationHtml, terms);
+  html += `<div class="result-explain">${explanationHtml.split("\n").map(l => l ? `<p>${l}</p>` : "").join("")}</div>`;
+
+  if (optimizedText) {
+    html += `<div class="optimized-box">
+      <div class="optimized-label">✅ Bài viết đã tối ưu — sẵn sàng đăng</div>
+      <div class="optimized-body">${escapeHtml(optimizedText)}</div>
+      <button type="button" class="btn btn-good" id="copyOptimizedBtn" onclick="copyOptimized()">⧉ Sao chép bài đã tối ưu</button>
+    </div>`;
+  }
+
+  resultEl.innerHTML = html;
+  resultEl.style.display = "block";
+  disclaimerEl.style.display = "block";
+}
+
+async function copyOptimized(){
+  const btn = document.getElementById("copyOptimizedBtn");
+  if (!lastOptimizedText) return;
+  try {
+    await navigator.clipboard.writeText(lastOptimizedText);
+    if (btn) {
+      const original = btn.textContent;
+      btn.textContent = "✓ Đã sao chép";
+      btn.classList.add("copied");
+      setTimeout(() => { btn.textContent = original; btn.classList.remove("copied"); }, 1800);
+    }
+  } catch (e) {
+    alert("Không sao chép được tự động — vui lòng bôi đen và copy thủ công.");
+  }
+}
+
+function highlightTerms(escapedHtmlText, terms){
+  const uniq = [...new Set(terms.map(t => t.trim()).filter(Boolean).map(escapeHtml))]
+    .filter(Boolean)
+    .sort((a, b) => b.length - a.length);
+  if (!uniq.length) return escapedHtmlText;
+  const re = new RegExp(uniq.map(escapeRegex).join("|"), "gi");
+  return escapedHtmlText.replace(re, m => `<mark class="viol-term">${m}</mark>`);
+}
+function escapeRegex(s){
+  return String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+function escapeHtml(v){
+  return String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+</script>
+</body>
+</html>

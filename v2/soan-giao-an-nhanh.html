@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soạn Giáo Án Nhanh | Người Trao Giải Pháp</title>
+<link rel="icon" type="image/png" href="favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,700;0,900;1,600&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F1E2; --paper-2:#EFE7CF; --ink:#1F3A5C; --ink-dark:#152840;
+    --stamp:#B23A20; --stamp-dark:#8C2B17; --gold:#B8862B; --charcoal:#2B2620;
+    --line:#CBBE9C; --white:#FFFBF3;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--paper); color:var(--charcoal); font-family:'Be Vietnam Pro',sans-serif; line-height:1.5; padding-bottom:60px;}
+  h1,h2,h3{font-family:'Bitter',serif;}
+  .mono{font-family:'Space Mono',monospace;}
+  .wrap{max-width:960px; margin:0 auto; padding:0 20px;}
+  header{background:var(--ink); color:var(--white); padding:18px 0; border-bottom:3px solid var(--stamp); margin-bottom:34px;}
+  header .wrap{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  .brand{font-weight:700; font-size:0.95rem;}
+  .brand small{display:block; font-size:0.68rem; opacity:0.75; font-family:'Space Mono',monospace;}
+  .back{color:var(--white); text-decoration:none; font-size:0.82rem; border-bottom:1px dashed rgba(255,255,255,0.5);}
+
+  h1.title{font-size:clamp(1.5rem,4vw,2rem); color:var(--ink-dark); margin-bottom:8px;}
+  .subtitle{color:#5c5647; margin-bottom:30px; max-width:64ch;}
+
+  .panel{background:var(--white); border:1.5px solid var(--charcoal); padding:24px 22px; margin-bottom:24px; position:relative;}
+  .panel::after{content:""; position:absolute; inset:6px; border:1px dashed var(--line); pointer-events:none;}
+  .panel h3{font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; font-family:'Space Mono',monospace; color:var(--stamp); margin-bottom:18px; border-bottom:1px dashed var(--line); padding-bottom:10px;}
+
+  .grid{display:grid; gap:16px; grid-template-columns:1fr;}
+  @media(min-width:700px){.grid.cols-2{grid-template-columns:1fr 1fr;}}
+  @media(min-width:700px){.grid.cols-3{grid-template-columns:1fr 1fr 1fr;}}
+
+  label{display:block; font-size:0.84rem; font-weight:600; margin-bottom:6px; color:var(--ink-dark);}
+  input[type=text], input[type=number], select, textarea{
+    width:100%; padding:11px 12px; border:1.5px solid var(--line); background:var(--paper);
+    font-family:'Be Vietnam Pro',sans-serif; font-size:0.92rem; color:var(--charcoal); border-radius:2px;
+  }
+  textarea{resize:vertical; min-height:64px; font-family:'Be Vietnam Pro',sans-serif;}
+  input:focus, select:focus, textarea:focus{outline:none; border-color:var(--stamp);}
+  .hint{font-size:0.76rem; color:#8a8270; margin-top:5px;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:3px;
+    font-weight:700; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none;
+  }
+  .btn-stamp{background:var(--stamp); color:var(--white); box-shadow:3px 3px 0 var(--stamp-dark);}
+  .btn-outline{background:transparent; color:var(--ink-dark); border:1.5px solid var(--charcoal);}
+  .btn-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;}
+
+  #ketQua{display:none;}
+  .giao-an{background:var(--white); border:1.5px solid var(--charcoal); padding:34px 30px;}
+  .giao-an h2.ten-bai{text-align:center; font-size:1.3rem; color:var(--ink-dark); text-transform:uppercase; margin-bottom:6px;}
+  .giao-an .meta-line{text-align:center; font-size:0.86rem; color:#6b6353; margin-bottom:26px; font-family:'Space Mono',monospace;}
+  .muc{margin-bottom:22px;}
+  .muc > h4{font-size:1rem; font-weight:700; color:var(--stamp); margin-bottom:10px; border-bottom:1px dashed var(--line); padding-bottom:6px;}
+  .muc ol, .muc ul{margin-left:22px; margin-bottom:8px;}
+  .muc li{margin-bottom:5px; font-size:0.92rem;}
+  .hoat-dong{border-left:3px solid var(--gold); padding:12px 16px; margin-bottom:14px; background:var(--paper-2);}
+  .hoat-dong h5{font-size:0.94rem; color:var(--ink-dark); margin-bottom:8px;}
+  .hoat-dong .field{margin-bottom:6px; font-size:0.87rem;}
+  .hoat-dong .field b{color:var(--ink);}
+  .editable{outline:none; border-bottom:1px dotted var(--line); min-height:1.4em;}
+  .editable:focus{background:#fffbe8;}
+
+  @media print{
+    header, .panel, .btn-row, footer{display:none !important;}
+    body{padding:0; background:white;}
+    .giao-an{border:none; padding:0;}
+  }
+  footer{text-align:center; font-size:0.8rem; color:#8a8270; margin-top:40px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">Võ Hồng Thắng — Người Trao Giải Pháp<small>CÔNG CỤ DÀNH CHO GIÁO VIÊN</small></div>
+    <a class="back" href="index.html">← Về trang chủ</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <h1 class="title">Soạn Giáo Án Nhanh</h1>
+  <p class="subtitle">Nhập thông tin bài học — nhận ngay khung giáo án đầy đủ theo cấu trúc Công văn 5512/BGDĐT (4 hoạt động chuẩn). Bạn chỉ cần điền nội dung cụ thể vào chỗ trống, không phải dựng khung từ đầu.</p>
+
+  <div class="panel">
+    <h3>① Thông Tin Bài Học</h3>
+    <div class="grid cols-2">
+      <div>
+        <label>Môn học</label>
+        <input type="text" id="monHoc" value="Ngữ văn" placeholder="VD: Toán, Ngữ văn, KHTN...">
+      </div>
+      <div>
+        <label>Lớp</label>
+        <input type="text" id="lop" value="7" placeholder="VD: 7">
+      </div>
+    </div>
+    <div class="grid cols-2" style="margin-top:16px;">
+      <div>
+        <label>Tên bài học</label>
+        <input type="text" id="tenBai" value="Ca dao, dân ca — những câu hát về tình cảm gia đình" placeholder="Nhập đúng tên bài trong SGK">
+      </div>
+      <div>
+        <label>Số tiết</label>
+        <input type="number" id="soTiet" value="2" min="1" max="10">
+      </div>
+    </div>
+    <div class="grid cols-2" style="margin-top:16px;">
+      <div>
+        <label>Kiến thức trọng tâm cần đạt (mỗi ý 1 dòng)</label>
+        <textarea id="kienThuc">Hiểu nội dung, ý nghĩa của các câu hát về tình cảm gia đình
+Nhận biết một số biện pháp nghệ thuật tiêu biểu trong ca dao</textarea>
+      </div>
+      <div>
+        <label>Thiết bị dạy học &amp; học liệu</label>
+        <textarea id="thietBi">SGK, SGV, máy chiếu/bảng phụ
+Phiếu học tập, video/hình ảnh minh hoạ liên quan chủ đề bài học</textarea>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-stamp" onclick="taoGiaoAn()">Tạo Khung Giáo Án</button>
+      <button class="btn btn-outline" onclick="taiWord()">📄 Tải Về Word (.doc)</button>
+      <button class="btn btn-outline" onclick="window.print()">🖨 In / Lưu PDF</button>
+    </div>
+    <p class="hint">💡 Sau khi tạo, bạn có thể bấm trực tiếp vào các dòng có gạch chân chấm bên dưới để chỉnh sửa nội dung ngay trên trang trước khi tải về.</p>
+  </div>
+
+  <div id="ketQua">
+    <div class="giao-an" id="giaoAnContent">
+      <!-- nội dung sinh ra bằng JS -->
+    </div>
+  </div>
+</div>
+
+<footer>Khung giáo án tham khảo theo cấu trúc Công văn 5512/BGDĐT-GDTrH — thuộc kho giải pháp của Võ Hồng Thắng.</footer>
+
+<script>
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+function taoGiaoAn(){
+  const mon = document.getElementById('monHoc').value || '...';
+  const lop = document.getElementById('lop').value || '...';
+  const ten = document.getElementById('tenBai').value || 'Tên bài học';
+  const soTiet = document.getElementById('soTiet').value || 1;
+  const kienThucLines = (document.getElementById('kienThuc').value || '').split('\n').filter(x=>x.trim());
+  const thietBiLines = (document.getElementById('thietBi').value || '').split('\n').filter(x=>x.trim());
+
+  const kienThucLi = kienThucLines.length ? kienThucLines.map(l=>`<li>${esc(l)}</li>`).join('') : '<li class="editable" contenteditable="true">[Điền kiến thức trọng tâm]</li>';
+  const thietBiLi = thietBiLines.length ? thietBiLines.map(l=>`<li>${esc(l)}</li>`).join('') : '<li class="editable" contenteditable="true">[Điền thiết bị dạy học]</li>';
+
+  const html = `
+    <h2 class="ten-bai">${esc(ten)}</h2>
+    <div class="meta-line">Môn: ${esc(mon)} — Lớp: ${esc(lop)} — Thời lượng: ${esc(soTiet)} tiết</div>
+
+    <div class="muc">
+      <h4>I. Mục Tiêu</h4>
+      <p style="font-size:0.9rem; font-weight:600; margin-bottom:4px;">1. Về kiến thức</p>
+      <ol>${kienThucLi}</ol>
+      <p style="font-size:0.9rem; font-weight:600; margin:10px 0 4px;">2. Về năng lực</p>
+      <ul>
+        <li class="editable" contenteditable="true">Năng lực chung: tự chủ và tự học, giao tiếp và hợp tác, giải quyết vấn đề và sáng tạo</li>
+        <li class="editable" contenteditable="true">Năng lực đặc thù môn ${esc(mon)}: [điền năng lực đặc thù phù hợp bài học]</li>
+      </ul>
+      <p style="font-size:0.9rem; font-weight:600; margin:10px 0 4px;">3. Về phẩm chất</p>
+      <ul>
+        <li class="editable" contenteditable="true">[Điền phẩm chất: chăm chỉ, trách nhiệm, nhân ái... phù hợp nội dung bài]</li>
+      </ul>
+    </div>
+
+    <div class="muc">
+      <h4>II. Thiết Bị Dạy Học &amp; Học Liệu</h4>
+      <ul>${thietBiLi}</ul>
+    </div>
+
+    <div class="muc">
+      <h4>III. Tiến Trình Dạy Học</h4>
+
+      <div class="hoat-dong">
+        <h5>Hoạt động 1 — Mở đầu (Khởi động)</h5>
+        <div class="field"><b>Mục tiêu:</b> <span class="editable" contenteditable="true">Tạo tâm thế, kết nối kiến thức đã học/kinh nghiệm thực tế với nội dung bài mới</span></div>
+        <div class="field"><b>Nội dung:</b> <span class="editable" contenteditable="true">[Câu hỏi gợi mở / tình huống / trò chơi ngắn dẫn vào bài]</span></div>
+        <div class="field"><b>Sản phẩm:</b> <span class="editable" contenteditable="true">Câu trả lời/ý kiến ban đầu của học sinh</span></div>
+        <div class="field"><b>Tổ chức thực hiện:</b> <span class="editable" contenteditable="true">GV nêu câu hỏi/tình huống → HS trả lời cá nhân → GV dẫn dắt vào bài mới</span></div>
+      </div>
+
+      <div class="hoat-dong">
+        <h5>Hoạt động 2 — Hình thành kiến thức mới</h5>
+        <div class="field"><b>Mục tiêu:</b> <span class="editable" contenteditable="true">Học sinh chiếm lĩnh được kiến thức trọng tâm đã nêu ở Mục I.1</span></div>
+        <div class="field"><b>Nội dung:</b> <span class="editable" contenteditable="true">[Nội dung kiến thức chính, chia theo từng đơn vị kiến thức nhỏ]</span></div>
+        <div class="field"><b>Sản phẩm:</b> <span class="editable" contenteditable="true">Phiếu học tập/vở ghi của học sinh sau hoạt động</span></div>
+        <div class="field"><b>Tổ chức thực hiện:</b> <span class="editable" contenteditable="true">GV giao nhiệm vụ (cá nhân/nhóm) → HS thực hiện → Báo cáo, thảo luận → GV chốt kiến thức</span></div>
+      </div>
+
+      <div class="hoat-dong">
+        <h5>Hoạt động 3 — Luyện tập</h5>
+        <div class="field"><b>Mục tiêu:</b> <span class="editable" contenteditable="true">Củng cố, vận dụng trực tiếp kiến thức vừa học vào bài tập cụ thể</span></div>
+        <div class="field"><b>Nội dung:</b> <span class="editable" contenteditable="true">[Hệ thống câu hỏi/bài tập luyện tập bám sát kiến thức trọng tâm]</span></div>
+        <div class="field"><b>Sản phẩm:</b> <span class="editable" contenteditable="true">Bài làm của học sinh (cá nhân hoặc nhóm)</span></div>
+        <div class="field"><b>Tổ chức thực hiện:</b> <span class="editable" contenteditable="true">GV giao bài tập → HS làm việc độc lập/nhóm → GV nhận xét, sửa bài</span></div>
+      </div>
+
+      <div class="hoat-dong">
+        <h5>Hoạt động 4 — Vận dụng</h5>
+        <div class="field"><b>Mục tiêu:</b> <span class="editable" contenteditable="true">Vận dụng kiến thức, kĩ năng đã học để giải quyết vấn đề trong thực tiễn</span></div>
+        <div class="field"><b>Nội dung:</b> <span class="editable" contenteditable="true">[Bài tập/nhiệm vụ vận dụng thực tế, có thể giao về nhà]</span></div>
+        <div class="field"><b>Sản phẩm:</b> <span class="editable" contenteditable="true">Sản phẩm vận dụng của học sinh (bài viết, dự án nhỏ...)</span></div>
+        <div class="field"><b>Tổ chức thực hiện:</b> <span class="editable" contenteditable="true">GV giao nhiệm vụ vận dụng → HS thực hiện ở nhà/tiết sau → GV kiểm tra, đánh giá</span></div>
+      </div>
+    </div>
+
+    <div class="muc">
+      <h4>IV. Hồ Sơ Dạy Học</h4>
+      <ul>
+        <li class="editable" contenteditable="true">Phiếu học tập, rubric đánh giá (nếu có)</li>
+      </ul>
+    </div>
+  `;
+  document.getElementById('giaoAnContent').innerHTML = html;
+  document.getElementById('ketQua').style.display = 'block';
+  document.getElementById('ketQua').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function taiWord(){
+  if(document.getElementById('ketQua').style.display === 'none'){ taoGiaoAn(); }
+  const content = document.getElementById('giaoAnContent').innerHTML;
+  const ten = document.getElementById('tenBai').value || 'giao-an';
+  const htmlDoc = `
+    <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+    <head><meta charset="utf-8"><title>${esc(ten)}</title>
+    <style>
+      body{font-family:'Times New Roman',serif; font-size:13pt;}
+      h2{text-align:center; text-transform:uppercase;}
+      h4{color:#B23A20;}
+      .hoat-dong{border-left:3px solid #B8862B; padding:8px 12px; margin-bottom:10px;}
+    </style></head>
+    <body>${content}</body></html>`;
+  const blob = new Blob(['\ufeff', htmlDoc], {type:'application/msword'});
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'giao-an-' + ten.toLowerCase().replace(/[^a-z0-9]+/g,'-').substring(0,40) + '.doc';
+  link.click();
+}
+
+taoGiaoAn();
+</script>
+</body>
+</html>
