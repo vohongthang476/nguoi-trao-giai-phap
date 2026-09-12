@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "updatedAt": "2026-09-12",
+  "demos": [
+    {"title":"Tạo đề ôn tập Cấp 1","desc":"Demo thực tế sẽ được gắn khi có đúng nguồn video.","url":""},
+    {"title":"Tạo đề ôn tập Cấp 2","desc":"Demo thực tế sẽ được gắn khi có đúng nguồn video.","url":""},
+    {"title":"Báo giá / tư vấn điện mặt trời","desc":"Demo thực tế sẽ được gắn khi có đúng nguồn video.","url":""},
+    {"title":"Sức khỏe & đời sống","desc":"Demo thực tế sẽ được gắn khi có đúng nguồn video.","url":""}
+  ]
+}
