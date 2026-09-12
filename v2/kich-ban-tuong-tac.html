@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bộ Kịch Bản Tương Tác | Người Trao Giải Pháp</title>
+<link rel="icon" type="image/png" href="favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,700;0,900;1,600&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F1E2; --paper-2:#EFE7CF; --ink:#1F3A5C; --ink-dark:#152840;
+    --stamp:#B23A20; --stamp-dark:#8C2B17; --gold:#B8862B; --charcoal:#2B2620;
+    --line:#CBBE9C; --white:#FFFBF3; --good:#2F6B3E;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--paper); color:var(--charcoal); font-family:'Be Vietnam Pro',sans-serif; line-height:1.5; padding-bottom:60px;}
+  h1,h2,h3{font-family:'Bitter',serif;}
+  .mono{font-family:'Space Mono',monospace;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 20px;}
+  header{background:var(--ink); color:var(--white); padding:18px 0; border-bottom:3px solid var(--stamp); margin-bottom:34px;}
+  header .wrap{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  .brand{font-weight:700; font-size:0.95rem;}
+  .brand small{display:block; font-size:0.68rem; opacity:0.75; font-family:'Space Mono',monospace;}
+  .back{color:var(--white); text-decoration:none; font-size:0.82rem; border-bottom:1px dashed rgba(255,255,255,0.5);}
+
+  h1.title{font-size:clamp(1.5rem,4vw,2rem); color:var(--ink-dark); margin-bottom:8px;}
+  .subtitle{color:#5c5647; margin-bottom:30px; max-width:64ch;}
+
+  .panel{background:var(--white); border:1.5px solid var(--charcoal); padding:24px 22px; margin-bottom:24px; position:relative;}
+  .panel::after{content:""; position:absolute; inset:6px; border:1px dashed var(--line); pointer-events:none;}
+  .panel h3{font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; font-family:'Space Mono',monospace; color:var(--stamp); margin-bottom:18px; border-bottom:1px dashed var(--line); padding-bottom:10px;}
+
+  .grid{display:grid; gap:16px; grid-template-columns:1fr;}
+  @media(min-width:700px){.grid.cols-2{grid-template-columns:1fr 1fr;}}
+  @media(min-width:700px){.grid.cols-3{grid-template-columns:1fr 1fr 1fr;}}
+
+  label{display:block; font-size:0.84rem; font-weight:600; margin-bottom:6px; color:var(--ink-dark);}
+  input[type=text], textarea{
+    width:100%; padding:11px 12px; border:1.5px solid var(--line); background:var(--paper);
+    font-family:'Be Vietnam Pro',sans-serif; font-size:0.92rem; color:var(--charcoal); border-radius:2px;
+  }
+  textarea{resize:vertical; min-height:64px; font-family:'Be Vietnam Pro',sans-serif;}
+  input:focus, textarea:focus{outline:none; border-color:var(--stamp);}
+  .hint{font-size:0.76rem; color:#8a8270; margin-top:5px;}
+
+  .stage-tabs{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px;}
+  .stage-tab{
+    font-family:'Space Mono',monospace; font-size:0.78rem; padding:9px 16px; border:1.5px solid var(--charcoal);
+    background:var(--paper); color:var(--ink-dark); cursor:pointer; border-radius:20px; font-weight:700;
+  }
+  .stage-tab.active{background:var(--stamp); color:var(--white); border-color:var(--stamp);}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:3px;
+    font-weight:700; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none;
+  }
+  .btn-stamp{background:var(--stamp); color:var(--white); box-shadow:3px 3px 0 var(--stamp-dark);}
+  .btn-stamp:hover{transform:translate(-1px,-1px);}
+  .btn-outline{background:transparent; color:var(--ink-dark); border:1.5px solid var(--charcoal);}
+  .btn-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;}
+
+  #ketQua{display:none; white-space:pre-wrap; background:var(--paper-2); border:1.5px dashed var(--gold);
+    padding:18px; font-family:'Space Mono',monospace; font-size:0.85rem; margin-top:6px; border-radius:2px; line-height:1.6;}
+  .stage-badge{display:inline-block; font-size:0.68rem; padding:3px 10px; border-radius:12px; font-family:'Space Mono',monospace; font-weight:700; margin-bottom:14px;}
+  .stage-badge.tiep-can{background:#DDEBD9; color:var(--good);}
+  .stage-badge.can-nhac{background:#F3E6C9; color:var(--gold);}
+  .stage-badge.chot-deal{background:#F5DCD3; color:var(--stamp);}
+
+  footer{text-align:center; font-size:0.8rem; color:#8a8270; margin-top:40px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">Võ Hồng Thắng — Người Trao Giải Pháp<small>CÔNG CỤ MÔI GIỚI BẤT ĐỘNG SẢN</small></div>
+    <a class="back" href="index.html">← Về trang chủ</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <h1 class="title">Bộ Kịch Bản Tương Tác</h1>
+  <p class="subtitle">Chọn đúng giai đoạn khách hàng đang ở, điền vài thông tin — nhận ngay mẫu tin nhắn đúng tâm lý để gửi qua Zalo. Không cần tự nghĩ lời mỗi lần nhắn khách mới.</p>
+
+  <div class="panel">
+    <h3>① Chọn Giai Đoạn Khách Hàng</h3>
+    <div class="stage-tabs">
+      <button type="button" class="stage-tab active" data-stage="tiep-can" onclick="chonGiaiDoan('tiep-can', this)">🟢 Mới Tiếp Cận</button>
+      <button type="button" class="stage-tab" data-stage="can-nhac" onclick="chonGiaiDoan('can-nhac', this)">🟡 Đang Cân Nhắc</button>
+      <button type="button" class="stage-tab" data-stage="chot-deal" onclick="chonGiaiDoan('chot-deal', this)">🔴 Sắp Chốt Deal</button>
+    </div>
+
+    <h3>② Thông Tin Khách &amp; Bất Động Sản</h3>
+    <div class="grid cols-2">
+      <div>
+        <label>Tên khách hàng</label>
+        <input type="text" id="tenKhach" value="Anh Minh" placeholder="VD: Anh Minh">
+      </div>
+      <div>
+        <label>Tên / Vị trí bất động sản</label>
+        <input type="text" id="tenBDS" value="Căn hộ 2PN, chung cư Sun Grand, Quận 7" placeholder="VD: Nhà phố 4x18m, Quận 7">
+      </div>
+    </div>
+    <div class="grid cols-2" style="margin-top:16px;">
+      <div>
+        <label>Mức giá</label>
+        <input type="text" id="mucGia" value="3.2 tỷ" placeholder="VD: 3.2 tỷ, thương lượng">
+      </div>
+      <div>
+        <label>Điểm nổi bật (mỗi ý 1 dòng)</label>
+        <textarea id="diemNoiBat">View sông, hướng Đông Nam mát cả ngày
+Sổ hồng riêng, đã bàn giao, dọn vào ở ngay</textarea>
+      </div>
+    </div>
+
+    <div id="fieldCanNhac" style="display:none; margin-top:16px;">
+      <label>Băn khoăn / lo ngại của khách (nếu biết)</label>
+      <textarea id="banKhoan">Còn phân vân về giá, muốn so sánh thêm vài căn khác</textarea>
+    </div>
+    <div id="fieldChotDeal" style="display:none; margin-top:16px;">
+      <label>Ưu đãi / lý do nên chốt sớm</label>
+      <textarea id="uuDai">Chủ nhà giảm thêm 50 triệu nếu đặt cọc trong tuần này, hỗ trợ vay ngân hàng lãi suất ưu đãi 6.5%/năm</textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-stamp" onclick="taoKichBan()">Tạo Kịch Bản</button>
+      <button class="btn btn-outline" onclick="saoChep()">📋 Sao Chép Gửi Zalo</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>③ Tin Nhắn Gợi Ý</h3>
+    <span class="stage-badge tiep-can" id="stageBadge">🟢 MỚI TIẾP CẬN</span>
+    <div id="ketQua"></div>
+    <p class="hint" style="margin-top:14px;">💡 Luôn đọc lại và chỉnh vài chữ cho hợp giọng văn của bạn trước khi gửi — khách sẽ thấy tin nhắn tự nhiên hơn thay vì rập khuôn.</p>
+  </div>
+</div>
+
+<footer>Công cụ thuộc kho giải pháp của Võ Hồng Thắng — Người Trao Giải Pháp Tinh Gọn.</footer>
+
+<script>
+let giaiDoanHienTai = 'tiep-can';
+
+function chonGiaiDoan(stage, btn){
+  giaiDoanHienTai = stage;
+  document.querySelectorAll('.stage-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('fieldCanNhac').style.display = stage === 'can-nhac' ? 'block' : 'none';
+  document.getElementById('fieldChotDeal').style.display = stage === 'chot-deal' ? 'block' : 'none';
+  taoKichBan();
+}
+
+function taoKichBan(){
+  const ten = document.getElementById('tenKhach').value || 'Anh/Chị';
+  const bds = document.getElementById('tenBDS').value || '[tên bất động sản]';
+  const gia = document.getElementById('mucGia').value || '[mức giá]';
+  const diemNoiBat = (document.getElementById('diemNoiBat').value || '').split('\n').filter(x=>x.trim());
+  const diemNoiBatText = diemNoiBat.map(l => '✓ ' + l).join('\n');
+
+  let text = '';
+  let badgeClass = 'tiep-can', badgeText = '🟢 MỚI TIẾP CẬN';
+
+  if(giaiDoanHienTai === 'tiep-can'){
+    text =
+`Chào ${ten}! 👋
+
+Em là [Tên bạn] — bên môi giới bất động sản khu vực này. Em thấy ${ten} đang quan tâm tới ${bds}, em xin gửi nhanh vài thông tin nổi bật để ${ten} tham khảo trước ạ:
+
+${diemNoiBatText}
+
+💰 Mức giá hiện tại: ${gia}
+
+${ten} có thời gian rảnh khung nào tuần này để em sắp lịch dẫn đi xem thực tế không ạ? Em sẽ chuẩn bị sẵn đầy đủ pháp lý và hình ảnh chi tiết gửi trước cho ${ten} xem qua.`;
+    badgeClass = 'tiep-can'; badgeText = '🟢 MỚI TIẾP CẬN';
+
+  } else if(giaiDoanHienTai === 'can-nhac'){
+    const banKhoan = document.getElementById('banKhoan').value || 'còn đang cân nhắc thêm';
+    text =
+`Chào ${ten}, em đây ạ! 😊
+
+Em hiểu ${ten} ${banKhoan.charAt(0).toLowerCase() + banKhoan.slice(1)} — đây là quyết định lớn nên cân nhắc kỹ là đúng rồi ạ. Em xin chia sẻ thêm để ${ten} có đầy đủ thông tin so sánh:
+
+${diemNoiBatText}
+
+Về mức giá ${gia}, em đã tham khảo các căn tương tự trong khu vực thì đây thuộc nhóm cạnh tranh nhất hiện tại. Nếu ${ten} cần em gửi thêm bảng so sánh 2-3 căn cùng phân khúc, hoặc hỗ trợ tính toán phương án vay ngân hàng cụ thể, em làm ngay ạ.
+
+${ten} có thể xem lại thêm 1-2 ngày, nhưng em xin phép nhắc là căn này đang có 2 khách khác cũng đang xem, để ${ten} chủ động sắp xếp ạ.`;
+    badgeClass = 'can-nhac'; badgeText = '🟡 ĐANG CÂN NHẮC';
+
+  } else {
+    const uuDai = document.getElementById('uuDai').value || 'ưu đãi đặc biệt nếu chốt sớm';
+    text =
+`Chào ${ten} ạ! 🎉
+
+Em có tin vui muốn báo ${ten} sớm: ${uuDai}
+
+Đây là thời điểm khá tốt để ${ten} chốt ${bds} với mức giá ${gia} — vừa được ưu đãi, vừa chắc suất vì căn này đang được nhiều người quan tâm.
+
+Nếu ${ten} đồng ý, em xin phép chuẩn bị sẵn hợp đồng đặt cọc để mình tiến hành trong 1-2 ngày tới, tránh trường hợp hết ưu đãi hoặc có khách khác đặt cọc trước ạ. ${ten} cho em xin lịch thuận tiện để gặp trực tiếp nhé!`;
+    badgeClass = 'chot-deal'; badgeText = '🔴 SẮP CHỐT DEAL';
+  }
+
+  document.getElementById('ketQua').textContent = text;
+  document.getElementById('ketQua').style.display = 'block';
+  const badge = document.getElementById('stageBadge');
+  badge.className = 'stage-badge ' + badgeClass;
+  badge.textContent = badgeText;
+}
+
+function saoChep(){
+  if(document.getElementById('ketQua').style.display === 'none'){ taoKichBan(); }
+  const text = document.getElementById('ketQua').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    alert('Đã sao chép! Dán trực tiếp vào Zalo để gửi khách.');
+  }).catch(()=>{
+    document.getElementById('ketQua').scrollIntoView({behavior:'smooth'});
+  });
+}
+
+taoKichBan();
+</script>
+</body>
+</html>

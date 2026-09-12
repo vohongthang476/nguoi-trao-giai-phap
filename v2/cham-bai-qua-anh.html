@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chấm Bài Qua Ảnh (AI) | Người Trao Giải Pháp</title>
+<link rel="icon" type="image/png" href="favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,700;0,900;1,600&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F1E2; --paper-2:#EFE7CF; --ink:#1F3A5C; --ink-dark:#152840;
+  --stamp:#B23A20; --stamp-dark:#8C2B17; --gold:#B8862B; --charcoal:#2B2620;
+  --line:#CBBE9C; --white:#FFFBF3; --good:#2F6B3E;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{background:var(--paper); color:var(--charcoal); font-family:'Be Vietnam Pro',sans-serif; line-height:1.5; padding-bottom:60px;}
+h1,h2,h3,h4{font-family:'Bitter',serif;}
+.mono{font-family:'Space Mono',monospace;}
+.wrap{max-width:760px; margin:0 auto; padding:0 20px;}
+header{background:var(--ink); color:var(--white); padding:18px 0; border-bottom:3px solid var(--stamp); margin-bottom:34px;}
+header .wrap{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+.brand{font-weight:700; font-size:0.95rem;}
+.brand small{display:block; font-size:0.68rem; opacity:0.75; font-family:'Space Mono',monospace;}
+.back{color:var(--white); text-decoration:none; font-size:0.82rem; border-bottom:1px dashed rgba(255,255,255,0.5);}
+
+h1.title{font-size:clamp(1.5rem,4vw,2rem); color:var(--ink-dark); margin-bottom:8px;}
+.subtitle{color:#5c5647; margin-bottom:26px; max-width:60ch;}
+
+.notice{
+  background:var(--paper-2); border:1.5px dashed var(--gold); padding:16px 18px; margin-bottom:26px; font-size:0.86rem; color:#4a4437;
+}
+.notice b{color:var(--stamp-dark);}
+.notice ul{margin:8px 0 0; padding-left:20px;}
+.notice li{margin-bottom:5px;}
+
+.panel{background:var(--white); border:1.5px solid var(--charcoal); padding:24px 22px; margin-bottom:24px; position:relative;}
+.panel::after{content:""; position:absolute; inset:6px; border:1px dashed var(--line); pointer-events:none;}
+.panel h3{font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; font-family:'Space Mono',monospace; color:var(--stamp); margin-bottom:18px; border-bottom:1px dashed var(--line); padding-bottom:10px;}
+
+.field{margin-bottom:16px;}
+label{display:block; font-size:0.84rem; font-weight:600; margin-bottom:6px; color:var(--ink-dark);}
+input[type=text],input[type=password],textarea{
+  width:100%; padding:11px 12px; border:1.5px solid var(--line); background:var(--paper);
+  font-family:inherit; font-size:0.95rem; color:var(--charcoal); border-radius:2px;
+}
+textarea{min-height:100px; resize:vertical; font-family:'Be Vietnam Pro',sans-serif;}
+input:focus,textarea:focus{outline:none; border-color:var(--stamp);}
+.hint{font-size:0.76rem; color:#8a8270; margin-top:6px;}
+.hint a{color:var(--stamp-dark);}
+.row{display:flex; gap:10px; flex-wrap:wrap;}
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:11px 18px; border-radius:3px;
+  font-weight:700; font-size:0.86rem; cursor:pointer; border:none; text-decoration:none;
+}
+.btn-stamp{background:var(--stamp); color:var(--white); box-shadow:3px 3px 0 var(--stamp-dark); transition:transform .12s ease;}
+.btn-stamp:hover{transform:translate(-1px,-1px);}
+.btn-stamp:disabled{opacity:.6; cursor:default; transform:none;}
+.btn-outline{background:transparent; color:var(--ink-dark); border:1.5px solid var(--charcoal);}
+.btn-lg{padding:14px 24px; font-size:0.95rem;}
+
+.preview{max-width:220px; border-radius:2px; border:1.5px solid var(--line); margin-top:10px; display:none;}
+.status{margin-top:14px; font-size:0.85rem; color:#6b6353; min-height:1.2em; white-space:pre-wrap;}
+.status.error{color:var(--stamp-dark); font-weight:600;}
+
+.result{background:var(--white); border:1.5px solid var(--charcoal); border-radius:2px; padding:20px 22px; margin-top:18px; font-size:0.95rem; display:none; position:relative;}
+.result::after{content:""; position:absolute; inset:6px; border:1px dashed var(--line); pointer-events:none;}
+.result-disclaimer{font-size:0.78rem; color:#8a8270; margin-top:10px; font-style:italic;}
+
+.score-box{display:flex; align-items:baseline; gap:10px; background:var(--paper-2); border:1.5px solid var(--stamp); border-radius:2px; padding:14px 18px; margin-bottom:18px; position:relative; z-index:1;}
+.score-label{font-family:'Space Mono',monospace; font-size:0.72rem; font-weight:700; color:var(--stamp-dark); text-transform:uppercase; letter-spacing:0.5px;}
+.score-num{font-family:'Bitter',serif; font-weight:900; font-size:1.9rem; color:var(--stamp); line-height:1;}
+.score-max{font-family:'Space Mono',monospace; font-size:1rem; font-weight:700; color:var(--stamp-dark);}
+
+.grading-body{position:relative; z-index:1;}
+.grading-body h4{font-family:'Space Mono',monospace; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.8px; color:var(--stamp); margin:18px 0 10px; border-bottom:1px dashed var(--line); padding-bottom:8px;}
+.grading-body h4:first-child{margin-top:0;}
+.grading-body p{margin:0 0 10px;}
+.grading-body ul{margin:0 0 14px; padding-left:22px;}
+.grading-body li{margin-bottom:8px;}
+.grading-body strong{color:var(--ink-dark);}
+.grading-body hr{border:none; border-top:1px dashed var(--line); margin:16px 0;}
+.grading-body code{background:var(--paper-2); border:1px solid var(--line); border-radius:2px; padding:1px 6px; font-family:'Space Mono',monospace; font-size:0.85em;}
+
+footer{text-align:center; font-size:0.8rem; color:#8a8270; margin-top:40px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">Võ Hồng Thắng — Người Trao Giải Pháp<small>CHẤM BÀI QUA ẢNH (AI GỢI Ý ĐIỂM)</small></div>
+    <a class="back" href="index.html">← Về trang chủ</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <h1 class="title">Chấm Bài Qua Ảnh (AI Gợi Ý Điểm)</h1>
+  <p class="subtitle">Chụp ảnh bài làm của học sinh — AI đọc bài, chấm điểm theo thang 10 và viết nhận xét chi tiết chỉ trong vài giây, thầy cô xem lại trước khi ghi vào sổ.</p>
+
+  <div class="notice">
+    <b>Đọc trước khi dùng:</b>
+    <ul>
+      <li>Công cụ cần một <b>khoá API Google Gemini miễn phí</b> của riêng thầy cô — lấy tại <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a> (đăng nhập Google, bấm "Create API key"). Google cho một lượng dùng miễn phí mỗi ngày, đủ dùng bình thường.</li>
+      <li>Khoá chỉ được lưu trên trình duyệt của máy đang dùng (localStorage), không gửi về máy chủ của tôi. Không dùng trên máy tính công cộng.</li>
+      <li><b>Đây là gợi ý chấm điểm bằng AI, không phải kết quả chính thức</b> — thầy cô luôn xem lại trước khi ghi điểm vào sổ.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>① Khoá API</h3>
+    <div class="field">
+      <label>Khoá API Gemini</label>
+      <input type="password" id="apiKey" placeholder="Dán khoá API vào đây">
+      <div class="hint">Lấy miễn phí tại <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a></div>
+    </div>
+    <div class="row">
+      <button class="btn btn-outline" onclick="saveKey()">Lưu khoá trên máy này</button>
+      <button class="btn btn-outline" onclick="clearKey()">Xoá khoá đã lưu</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>② Ảnh bài làm</h3>
+    <div class="field">
+      <label>Chụp hoặc chọn ảnh</label>
+      <input type="file" id="photoInput" accept="image/*" capture="environment">
+      <img id="preview" class="preview">
+    </div>
+    <div class="field">
+      <label>Yêu cầu chấm</label>
+      <textarea id="prompt">Đây là bài làm của học sinh. Hãy chấm điểm theo thang 10, nêu rõ lý do trừ điểm nếu có, và viết 2-3 nhận xét ngắn gọn, động viên học sinh.
+
+Trình bày CHÍNH XÁC theo cấu trúc sau, không dùng ký hiệu Markdown (không dùng #, không dùng dấu $ hay \mathbf, \times kiểu LaTeX) và không thêm phần nào khác:
+
+ĐIỂM TỔNG: [số điểm]/10
+
+NHẬN XÉT TỪNG CÂU:
+- [Câu ...: đúng/sai, lý do nếu sai, đáp án đúng nếu có]
+
+ƯU ĐIỂM:
+- [...]
+
+HẠN CHẾ:
+- [...]
+
+GỢI Ý CẢI THIỆN:
+- [...]</textarea>
+    </div>
+    <div class="field">
+      <label>Tên model</label>
+      <input type="text" id="modelName" value="gemini-3.6-flash">
+      <div class="hint">Nếu gặp lỗi "model không còn khả dụng", Google API sẽ báo luôn tên model mới trong thông báo lỗi — sửa lại ở đây mà không cần đổi cả trang.</div>
+    </div>
+  </div>
+
+  <button class="btn btn-stamp btn-lg" id="gradeBtn" onclick="gradePhoto()">✓ Chấm Bài</button>
+  <div class="status" id="status"></div>
+  <div class="result" id="result"></div>
+  <div class="result-disclaimer" id="resultDisclaimer" style="display:none;">Đây là gợi ý từ AI — thầy cô vui lòng xem lại trước khi ghi điểm chính thức.</div>
+
+  <footer>Công cụ thuộc kho giải pháp của Võ Hồng Thắng — Người Trao Giải Pháp Tinh Gọn.</footer>
+</div>
+
+<script>
+"use strict";
+const KEY_STORAGE = "thangvo_gemini_api_key";
+
+document.getElementById("apiKey").value = localStorage.getItem(KEY_STORAGE) || "";
+
+function saveKey(){
+  const v = document.getElementById("apiKey").value.trim();
+  if (!v) { setStatus("Chưa nhập khoá API.", true); return; }
+  try {
+    localStorage.setItem(KEY_STORAGE, v);
+    setStatus("Đã lưu khoá trên máy này.");
+  } catch (e) {
+    setStatus("Không lưu được (trình duyệt chặn lưu trữ). Vẫn có thể dùng trong phiên này.", true);
+  }
+}
+function clearKey(){
+  localStorage.removeItem(KEY_STORAGE);
+  document.getElementById("apiKey").value = "";
+  setStatus("Đã xoá khoá đã lưu.");
+}
+
+let photoBase64 = null, photoMime = null;
+document.getElementById("photoInput").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  photoMime = file.type || "image/jpeg";
+  const reader = new FileReader();
+  reader.onload = () => {
+    photoBase64 = reader.result.split(",")[1];
+    const img = document.getElementById("preview");
+    img.src = reader.result;
+    img.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+});
+
+function setStatus(text, isError){
+  const el = document.getElementById("status");
+  el.textContent = text;
+  el.className = "status" + (isError ? " error" : "");
+}
+
+async function gradePhoto(){
+  const apiKey = document.getElementById("apiKey").value.trim();
+  const prompt = document.getElementById("prompt").value.trim();
+  const model = document.getElementById("modelName").value.trim() || "gemini-3.6-flash";
+  const btn = document.getElementById("gradeBtn");
+  const resultEl = document.getElementById("result");
+  const disclaimerEl = document.getElementById("resultDisclaimer");
+
+  if (!apiKey) { setStatus("Chưa nhập khoá API Gemini ở mục 1.", true); return; }
+  if (!photoBase64) { setStatus("Chưa chọn ảnh bài làm ở mục 2.", true); return; }
+
+  btn.disabled = true;
+  resultEl.style.display = "none";
+  disclaimerEl.style.display = "none";
+  setStatus("Đang gửi ảnh cho AI chấm, vui lòng chờ...");
+
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+  const body = {
+    contents: [{
+      parts: [
+        { text: prompt },
+        { inline_data: { mime_type: photoMime, data: photoBase64 } }
+      ]
+    }]
+  };
+
+  try {
+    const resp = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const data = await resp.json();
+    if (!resp.ok) {
+      let msg = (data && data.error && data.error.message) ? data.error.message : ("Lỗi HTTP " + resp.status);
+      if (/no longer available|not found/i.test(msg)) msg += "\n→ Sửa ô \"Tên model\" ở mục 2 theo tên model mà thông báo lỗi vừa gợi ý, rồi bấm Chấm bài lại.";
+      setStatus("Lỗi từ Gemini API: " + msg, true);
+      btn.disabled = false;
+      return;
+    }
+    const text = data?.candidates?.[0]?.content?.parts?.map(p => p.text).filter(Boolean).join("\n");
+    if (!text) {
+      setStatus("AI không trả về nội dung. Thử lại hoặc đổi ảnh rõ hơn.", true);
+      console.log("Raw response:", JSON.stringify(data));
+      btn.disabled = false;
+      return;
+    }
+    renderResult(text);
+    setStatus("Xong.");
+  } catch (err) {
+    setStatus("Không gọi được API (kiểm tra mạng hoặc khoá API): " + err.message, true);
+  }
+  btn.disabled = false;
+}
+
+function renderResult(rawText){
+  const resultEl = document.getElementById("result");
+  const disclaimerEl = document.getElementById("resultDisclaimer");
+
+  const scorePatterns = [
+    /ĐIỂM TỔNG\s*[:\-]?\s*([\d,.]+)\s*\/\s*10/i,
+    /Điểm đề xuất\s*[:\-]?\s*([\d,.]+)\s*\/\s*10/i,
+    /Điểm\s*[:\-]?\s*([\d,.]+)\s*\/\s*10/i,
+  ];
+  let score = null;
+  for (const re of scorePatterns) {
+    const m = rawText.match(re);
+    if (m) { score = m[1].trim(); break; }
+  }
+
+  const bodyText = score
+    ? rawText.replace(/^.*(ĐIỂM TỔNG|Điểm đề xuất|Điểm)\s*[:\-]?\s*[\d,.]+\s*\/\s*10.*$/mi, "").trim()
+    : rawText;
+
+  let html = "";
+  if (score) {
+    html += `<div class="score-box"><span class="score-label">Điểm đề xuất</span><span class="score-num">${escapeHtml(score)}</span><span class="score-max">/10</span></div>`;
+  }
+  html += `<div class="grading-body">${mdLiteToHtml(bodyText)}</div>`;
+
+  resultEl.innerHTML = html;
+  resultEl.style.display = "block";
+  disclaimerEl.style.display = "block";
+}
+
+function mdLiteToHtml(raw){
+  const cleaned = raw
+    .replace(/\\mathbf\{([^}]*)\}/g, "**$1**")
+    .replace(/\\text\{([^}]*)\}/g, "$1")
+    .replace(/\\times/g, "×")
+    .replace(/\\div/g, "÷")
+    .replace(/\\rightarrow/g, "→")
+    .replace(/\$\$?/g, "");
+
+  const lines = cleaned.split("\n");
+  let html = "";
+  let inList = false;
+  const closeList = () => { if (inList) { html += "</ul>"; inList = false; } };
+
+  lines.forEach(rawLine => {
+    const line = rawLine.trim();
+    if (!line) { closeList(); return; }
+
+    if (/^-{3,}$/.test(line)) { closeList(); html += "<hr>"; return; }
+
+    const headingMatch = line.match(/^#{1,4}\s*(.+)$/);
+    if (headingMatch) { closeList(); html += `<h4>${inlineMd(headingMatch[1])}</h4>`; return; }
+
+    const bulletMatch = rawLine.match(/^\s*[*\-•]\s+(.+)$/);
+    if (bulletMatch) {
+      if (!inList) { html += "<ul>"; inList = true; }
+      html += `<li>${inlineMd(bulletMatch[1])}</li>`;
+      return;
+    }
+
+    closeList();
+    html += `<p>${inlineMd(line)}</p>`;
+  });
+  closeList();
+  return html;
+}
+
+function inlineMd(s){
+  let esc = escapeHtml(s);
+  esc = esc.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  esc = esc.replace(/(^|[^*])\*([^*\n]+)\*([^*]|$)/g, "$1<em>$2</em>$3");
+  esc = esc.replace(/`([^`]+)`/g, "<code>$1</code>");
+  return esc;
+}
+
+function escapeHtml(v){
+  return String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+</script>
+</body>
+</html>
