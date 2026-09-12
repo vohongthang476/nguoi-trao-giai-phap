@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soạn Thảo Văn Bản & Biểu Mẫu | Người Trao Giải Pháp</title>
+<link rel="icon" type="image/png" href="favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,700;0,900;1,600&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F1E2; --paper-2:#EFE7CF; --ink:#1F3A5C; --ink-dark:#152840;
+    --stamp:#B23A20; --stamp-dark:#8C2B17; --gold:#B8862B; --charcoal:#2B2620;
+    --line:#CBBE9C; --white:#FFFBF3;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--paper); color:var(--charcoal); font-family:'Be Vietnam Pro',sans-serif; line-height:1.5; padding-bottom:60px;}
+  h1,h2,h3{font-family:'Bitter',serif;}
+  .mono{font-family:'Space Mono',monospace;}
+  .wrap{max-width:960px; margin:0 auto; padding:0 20px;}
+  header{background:var(--ink); color:var(--white); padding:18px 0; border-bottom:3px solid var(--stamp); margin-bottom:34px;}
+  header .wrap{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  .brand{font-weight:700; font-size:0.95rem;}
+  .brand small{display:block; font-size:0.68rem; opacity:0.75; font-family:'Space Mono',monospace;}
+  .back{color:var(--white); text-decoration:none; font-size:0.82rem; border-bottom:1px dashed rgba(255,255,255,0.5);}
+
+  h1.title{font-size:clamp(1.5rem,4vw,2rem); color:var(--ink-dark); margin-bottom:8px;}
+  .subtitle{color:#5c5647; margin-bottom:30px; max-width:64ch;}
+
+  .panel{background:var(--white); border:1.5px solid var(--charcoal); padding:24px 22px; margin-bottom:24px; position:relative;}
+  .panel::after{content:""; position:absolute; inset:6px; border:1px dashed var(--line); pointer-events:none;}
+  .panel h3{font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; font-family:'Space Mono',monospace; color:var(--stamp); margin-bottom:18px; border-bottom:1px dashed var(--line); padding-bottom:10px;}
+
+  .grid{display:grid; gap:16px; grid-template-columns:1fr;}
+  @media(min-width:700px){.grid.cols-2{grid-template-columns:1fr 1fr;}}
+  @media(min-width:700px){.grid.cols-3{grid-template-columns:1fr 1fr 1fr;}}
+
+  label{display:block; font-size:0.84rem; font-weight:600; margin-bottom:6px; color:var(--ink-dark);}
+  input[type=text], select, textarea{
+    width:100%; padding:11px 12px; border:1.5px solid var(--line); background:var(--paper);
+    font-family:'Be Vietnam Pro',sans-serif; font-size:0.92rem; color:var(--charcoal); border-radius:2px;
+  }
+  textarea{resize:vertical; min-height:64px; font-family:'Be Vietnam Pro',sans-serif;}
+  input:focus, select:focus, textarea:focus{outline:none; border-color:var(--stamp);}
+  .hint{font-size:0.76rem; color:#8a8270; margin-top:5px;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:3px;
+    font-weight:700; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none;
+  }
+  .btn-stamp{background:var(--stamp); color:var(--white); box-shadow:3px 3px 0 var(--stamp-dark);}
+  .btn-outline{background:transparent; color:var(--ink-dark); border:1.5px solid var(--charcoal);}
+  .btn-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;}
+
+  #ketQua{display:none;}
+  .a4-note{font-size:0.78rem; color:#6b6353; margin-bottom:14px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .a4-note .tag{font-family:'Space Mono',monospace; background:var(--paper-2); border:1px dashed var(--gold); padding:4px 10px; border-radius:20px; color:var(--ink); font-size:0.72rem; white-space:nowrap;}
+  .a4-stage{overflow-x:auto; padding:4px 2px 34px;}
+  .van-ban{
+    background:#fff; width:210mm; min-height:297mm; margin:0 auto;
+    padding:20mm 20mm 20mm 30mm;
+    box-shadow:0 0 0 1px var(--charcoal), 10px 10px 0 rgba(31,58,92,0.14);
+    font-family:'Times New Roman',serif; font-size:13pt; color:#000;
+  }
+  .vb-header{display:flex; justify-content:space-between; gap:20px; margin-bottom:22px; font-size:0.92rem;}
+  .vb-header .donvi{flex:1;}
+  .vb-header .donvi b{display:block; text-transform:uppercase;}
+  .vb-header .donvi .so-line{margin-top:4px; font-size:0.86rem;}
+  .vb-header .donvi .trichyeu-inline{font-style:italic; font-size:0.86rem; margin-top:3px; max-width:90%;}
+  .vb-header .quochieu{text-align:center; flex:1;}
+  .vb-header .quochieu b{display:block; text-transform:uppercase;}
+  .vb-header .quochieu .gach{width:130px; border-top:1px solid #000; margin:2px auto 0;}
+  .vb-diadanh{text-align:right; font-style:italic; font-size:0.92rem; margin-bottom:20px;}
+  .vb-diadanh-bottom{text-align:center; font-style:italic; font-size:0.92rem; margin-bottom:6px;}
+  .vb-tieude{text-align:center; font-size:1.2rem; font-weight:700; text-transform:uppercase; margin-bottom:6px;}
+  .vb-trichyeu{text-align:center; font-style:italic; margin-bottom:24px;}
+  .vb-kinhgui{margin-bottom:16px;}
+  .vb-noidung{white-space:pre-wrap; margin-bottom:26px; text-align:justify;}
+  .vb-ky{display:flex; justify-content:space-between; margin-top:10px; gap:20px;}
+  .vb-ky.only-signature{justify-content:flex-end;}
+  .vb-ky .noinhan{font-size:0.82rem; max-width:45%;}
+  .vb-ky .noinhan b{display:block; margin-bottom:4px;}
+  .vb-ky .chuky{text-align:center; font-size:0.92rem;}
+  .vb-ky .chuky .chucvu{font-weight:700; text-transform:uppercase; margin-bottom:60px;}
+  .vb-ky .chuky .ky-hint{font-size:0.76rem; color:#6b6353; margin-bottom:6px; font-style:italic;}
+  .editable{outline:none; border-bottom:1px dotted var(--line);}
+  .editable:focus{background:#fffbe8;}
+
+  @page{ size:A4; margin:0; }
+  @media print{
+    header, .panel, .a4-note, footer{display:none !important;}
+    body{padding:0; background:white;}
+    body *{visibility:hidden;}
+    .van-ban, .van-ban *{visibility:visible;}
+    .van-ban{position:absolute; top:0; left:0; box-shadow:none; margin:0;}
+    #ketQua, .a4-stage{overflow:visible !important;}
+  }
+  footer{text-align:center; font-size:0.8rem; color:#8a8270; margin-top:40px;}
+
+  /* ===== AI Role Panel (được JS chèn khi có ?role=... trên URL) — màu cứng, tách biệt
+     hoàn toàn với biến :root của trang để không ảnh hưởng giao diện "giấy tờ" hiện có. ===== */
+  .ai-role-panel{background:#0a2148; color:#fff; border-radius:10px; padding:22px; margin-bottom:26px; box-shadow:0 14px 34px -14px rgba(10,33,72,.5); font-family:'Be Vietnam Pro',sans-serif;}
+  .ai-role-panel .arp-eyebrow{display:inline-block; background:#b31919; color:#fff; font-size:0.72rem; font-weight:700; letter-spacing:.03em; padding:4px 10px; border-radius:999px; margin-bottom:10px;}
+  .ai-role-panel .arp-head{display:flex; align-items:center; gap:10px; margin-bottom:6px;}
+  .ai-role-panel .arp-head .ric{width:36px; height:36px; border-radius:9px; background:rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; font-size:18px; flex:none;}
+  .ai-role-panel h2{font-size:1.05rem; margin:0; font-family:'Be Vietnam Pro',sans-serif;}
+  .ai-role-panel .arp-desc{font-size:0.86rem; color:#c7d3e6; margin:2px 0 16px;}
+  .ai-role-panel label{display:block; font-size:0.8rem; font-weight:600; margin-bottom:6px; color:#dbe4f2;}
+  .ai-role-panel textarea{width:100%; min-height:110px; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.07); color:#fff; font-family:'Be Vietnam Pro',sans-serif; font-size:0.9rem; resize:vertical;}
+  .ai-role-panel textarea::placeholder{color:rgba(255,255,255,.45);}
+  .ai-role-panel textarea:focus{outline:none; border-color:#fff;}
+  .ai-role-panel input[type=password]{width:100%; padding:11px 12px; border-radius:8px; border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.07); color:#fff; font-family:'Be Vietnam Pro',sans-serif; font-size:0.88rem; margin-bottom:10px;}
+  .ai-role-panel input[type=password]::placeholder{color:rgba(255,255,255,.45);}
+  .arp-actions{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; align-items:center;}
+  .arp-btn{display:inline-flex; align-items:center; gap:7px; padding:11px 18px; border-radius:8px; font-weight:700; font-size:0.86rem; cursor:pointer; border:none; font-family:'Be Vietnam Pro',sans-serif;}
+  .arp-btn-primary{background:#b31919; color:#fff;}
+  .arp-btn-primary:hover{background:#8f1414;}
+  .arp-btn-ghost{background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.3) !important;}
+  .arp-btn-ghost:hover{background:rgba(255,255,255,.18);}
+  .arp-btn[disabled]{opacity:.55; cursor:not-allowed;}
+  .arp-status{font-size:0.8rem; color:#c7d3e6;}
+  .arp-output{margin-top:16px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.2); border-radius:8px; padding:14px; font-size:0.88rem; white-space:pre-wrap; line-height:1.6; max-height:360px; overflow:auto; font-family:'Be Vietnam Pro',sans-serif;}
+  .arp-output[hidden]{display:none;}
+  .arp-key-row[hidden]{display:none;}
+  .arp-key-hint{font-size:0.76rem; color:#c7d3e6; margin-top:4px;}
+  .arp-key-hint a{color:#fff;}
+  .arp-key-hint button{background:none; border:none; color:#fff; text-decoration:underline; cursor:pointer; font-size:0.76rem; padding:0; font-family:inherit;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">Võ Hồng Thắng — Người Trao Giải Pháp<small>CÔNG CỤ HỘ KINH DOANH &amp; HÀNH CHÍNH</small></div>
+    <a class="back" href="index.html">← Về trang chủ</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <h1 class="title">Soạn Thảo Văn Bản &amp; Biểu Mẫu</h1>
+  <p class="subtitle">Chọn loại văn bản, điền nội dung chính — nhận ngay bản đúng thể thức hành chính, sẵn sàng in hoặc tải về Word chỉnh sửa thêm.</p>
+
+  <div id="aiRolePanel"></div>
+
+  <div class="panel">
+    <h3>① Chọn Loại Văn Bản</h3>
+    <div class="grid cols-2">
+      <div>
+        <label>Loại văn bản</label>
+        <select id="loaiVanBan">
+          <option value="cong-van">Công văn đề nghị</option>
+          <option value="bao-cao">Báo cáo công việc</option>
+          <option value="don-xin">Đơn xin phép / Đề nghị</option>
+          <option value="thong-bao">Thông báo nội bộ</option>
+          <option value="to-trinh">Tờ trình</option>
+          <option value="bien-ban">Biên bản</option>
+          <option value="ke-hoach">Kế hoạch</option>
+        </select>
+      </div>
+      <div>
+        <label>Số văn bản</label>
+        <input type="text" id="soVanBan" value="01/2026/CV-HKD" placeholder="VD: 01/2026/CV-HKD">
+        <p class="hint">Đúng thể thức: số thứ tự/năm ban hành/ký hiệu loại-tên đơn vị viết tắt.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:22px;">② Thông Tin Chung</h3>
+    <div class="grid cols-2">
+      <div>
+        <label>Tên hộ kinh doanh / đơn vị</label>
+        <input type="text" id="tenDonVi" value="Hộ Kinh Doanh Ánh Dương" placeholder="VD: Hộ Kinh Doanh...">
+      </div>
+      <div>
+        <label>Địa danh, ngày tháng</label>
+        <input type="text" id="diaDanh" value="Nghệ An, ngày 20 tháng 8 năm 2026" placeholder="VD: Nghệ An, ngày ... tháng ... năm ...">
+      </div>
+    </div>
+    <div class="grid cols-2" style="margin-top:16px;">
+      <div>
+        <label>Kính gửi</label>
+        <input type="text" id="kinhGui" value="UBND Phường ... / Chi cục Thuế khu vực ..." placeholder="Nơi nhận chính">
+      </div>
+      <div>
+        <label>Trích yếu (tóm tắt 1 dòng)</label>
+        <input type="text" id="trichYeu" value="V/v đề nghị xác nhận địa điểm kinh doanh" placeholder="VD: V/v đề nghị...">
+      </div>
+    </div>
+    <div style="margin-top:16px;">
+      <label>Nội dung chính</label>
+      <textarea id="noiDungChinh" style="min-height:140px;">Căn cứ nhu cầu hoạt động kinh doanh thực tế tại địa chỉ nêu trên, Hộ kinh doanh kính đề nghị Quý cơ quan xem xét, xác nhận địa điểm kinh doanh để hoàn thiện thủ tục theo quy định.
+
+Kính mong Quý cơ quan xem xét, giải quyết trong thời gian sớm nhất.</textarea>
+    </div>
+    <div class="grid cols-2" style="margin-top:16px;">
+      <div>
+        <label>Người ký (họ tên)</label>
+        <input type="text" id="nguoiKy" value="Nguyễn Văn A" placeholder="Họ và tên">
+      </div>
+      <div>
+        <label>Chức vụ người ký</label>
+        <input type="text" id="chucVu" value="Chủ hộ kinh doanh" placeholder="VD: Chủ hộ kinh doanh">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-stamp" onclick="taoVanBan()">Tạo Văn Bản</button>
+      <button class="btn btn-outline" onclick="taiWord()">📄 Tải Về Word (.doc)</button>
+      <button class="btn btn-outline" onclick="window.print()">🖨 In / Lưu PDF</button>
+    </div>
+    <p class="hint">💡 Sau khi tạo, bấm vào phần nội dung để chỉnh sửa trực tiếp trên trang trước khi tải về hoặc in.</p>
+  </div>
+
+  <div id="ketQua">
+    <div class="a4-note"><span class="tag">📄 Khổ A4 — 210 × 297 mm</span> Trên điện thoại, cuộn ngang để xem đúng khổ giấy. Bấm vào nội dung để chỉnh sửa trực tiếp trước khi in hoặc tải về.</div>
+    <div class="a4-stage">
+      <div class="van-ban" id="vanBanContent"></div>
+    </div>
+  </div>
+</div>
+
+<footer>Mẫu văn bản tham khảo theo thể thức hành chính thông dụng — thuộc kho giải pháp của Võ Hồng Thắng.</footer>
+
+<script src="js/ai-roles.js"></script>
+<script>
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+// Thể thức theo Nghị định 30/2020/NĐ-CP: riêng CÔNG VĂN không có tên loại văn bản in hoa
+// giữa trang — trích yếu đặt ngay dưới số ký hiệu, bên trái. ĐƠN thì không có mục "Nơi nhận",
+// địa danh/ngày tháng đặt cuối văn bản ngay trên chữ ký thay vì đầu trang.
+const TYPE_CONFIG = {
+  'cong-van':  { tieuDe:'',              trichYeuInline:true,  showNoiNhan:true,  dateAtBottom:false, chucVuDefault:'Chủ hộ kinh doanh' },
+  'bao-cao':   { tieuDe:'BÁO CÁO',       trichYeuInline:false, showNoiNhan:true,  dateAtBottom:false, chucVuDefault:'Chủ hộ kinh doanh' },
+  'thong-bao': { tieuDe:'THÔNG BÁO',     trichYeuInline:false, showNoiNhan:true,  dateAtBottom:false, chucVuDefault:'Chủ hộ kinh doanh' },
+  'don-xin':   { tieuDe:'ĐƠN ĐỀ NGHỊ',   trichYeuInline:false, showNoiNhan:false, dateAtBottom:true,  chucVuDefault:'Người làm đơn' }
+};
+// Bổ sung 3 loại văn bản mới (Tờ trình / Biên bản / Kế hoạch) từ cấu hình dùng chung ai-roles.js,
+// phục vụ các Trợ lý AI Công Chức Xã — không đổi 4 loại gốc phía trên.
+if (window.CTX_AI && window.CTX_AI.EXTRA_VANBAN_TYPES) {
+  Object.assign(TYPE_CONFIG, window.CTX_AI.EXTRA_VANBAN_TYPES);
+}
+
+// Gợi ý lại "Chức vụ người ký" theo loại văn bản khi người dùng đổi lựa chọn —
+// nhưng không ghi đè nếu người dùng đã tự tay sửa trường này.
+let chucVuTouched = false;
+document.getElementById('chucVu').addEventListener('input', function(){ chucVuTouched = true; });
+document.getElementById('loaiVanBan').addEventListener('change', function(){
+  if(!chucVuTouched){
+    document.getElementById('chucVu').value = (TYPE_CONFIG[this.value] || {}).chucVuDefault || 'Chủ hộ kinh doanh';
+  }
+});
+
+function taoVanBan(){
+  const loai = document.getElementById('loaiVanBan').value;
+  const cfg = TYPE_CONFIG[loai] || TYPE_CONFIG['cong-van'];
+  const donVi = document.getElementById('tenDonVi').value || '[Tên đơn vị]';
+  const so = document.getElementById('soVanBan').value || '...';
+  const diaDanh = document.getElementById('diaDanh').value || '..., ngày ... tháng ... năm ...';
+  const kinhGui = document.getElementById('kinhGui').value || '[Nơi nhận]';
+  const trichYeu = document.getElementById('trichYeu').value || '';
+  const noiDung = document.getElementById('noiDungChinh').value || '[Nội dung văn bản]';
+  const nguoiKy = document.getElementById('nguoiKy').value || '[Họ tên người ký]';
+  const chucVu = document.getElementById('chucVu').value || cfg.chucVuDefault;
+
+  const headerHtml = `
+    <div class="vb-header">
+      <div class="donvi">
+        <b>${esc(donVi.toUpperCase())}</b>
+        <div class="so-line">Số: <span class="editable" contenteditable="true">${esc(so)}</span></div>
+        ${cfg.trichYeuInline && trichYeu ? `<div class="trichyeu-inline editable" contenteditable="true">${esc(trichYeu)}</div>` : ''}
+      </div>
+      <div class="quochieu">
+        <b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</b>
+        <div>Độc lập – Tự do – Hạnh phúc</div>
+        <div class="gach"></div>
+      </div>
+    </div>
+  `;
+
+  const diaDanhTop = !cfg.dateAtBottom
+    ? `<div class="vb-diadanh editable" contenteditable="true">${esc(diaDanh)}</div>` : '';
+
+  const tieuDeHtml = cfg.tieuDe ? `<div class="vb-tieude">${esc(cfg.tieuDe)}</div>` : '';
+  const trichYeuBlock = (!cfg.trichYeuInline && trichYeu)
+    ? `<div class="vb-trichyeu editable" contenteditable="true">${esc(trichYeu)}</div>` : '';
+
+  const kyBlock = cfg.showNoiNhan ? `
+    <div class="vb-ky">
+      <div class="noinhan">
+        <b>Nơi nhận:</b>
+        <div class="editable" contenteditable="true">- Như trên;<br>- Lưu: VT.</div>
+      </div>
+      <div class="chuky">
+        <div class="chucvu editable" contenteditable="true">${esc(chucVu)}</div>
+        <div class="editable" contenteditable="true">${esc(nguoiKy)}</div>
+      </div>
+    </div>
+  ` : `
+    <div class="vb-ky only-signature">
+      <div class="chuky">
+        ${cfg.dateAtBottom ? `<div class="vb-diadanh-bottom editable" contenteditable="true">${esc(diaDanh)}</div>` : ''}
+        <div class="chucvu editable" contenteditable="true">${esc(chucVu)}</div>
+        <div class="ky-hint">(Ký, ghi rõ họ tên)</div>
+        <div class="editable" contenteditable="true">${esc(nguoiKy)}</div>
+      </div>
+    </div>
+  `;
+
+  const html = `
+    ${headerHtml}
+    ${diaDanhTop}
+    ${tieuDeHtml}
+    ${trichYeuBlock}
+
+    <div class="vb-kinhgui">Kính gửi: <b class="editable" contenteditable="true">${esc(kinhGui)}</b></div>
+
+    <div class="vb-noidung editable" contenteditable="true">${esc(noiDung)}</div>
+
+    ${kyBlock}
+  `;
+  document.getElementById('vanBanContent').innerHTML = html;
+  document.getElementById('ketQua').style.display = 'block';
+  document.getElementById('ketQua').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function taiWord(){
+  if(document.getElementById('ketQua').style.display === 'none'){ taoVanBan(); }
+  const content = document.getElementById('vanBanContent').innerHTML;
+  const trichYeu = document.getElementById('trichYeu').value || 'van-ban';
+  const htmlDoc = `
+    <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+    <head><meta charset="utf-8"><title>${esc(trichYeu)}</title>
+    <!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->
+    <style>
+      @page WordSection1{ size:210mm 297mm; margin:20mm 20mm 20mm 30mm; }
+      div.WordSection1{ page:WordSection1; }
+      body{font-family:'Times New Roman',serif; font-size:13pt;}
+      .vb-header{display:flex; justify-content:space-between;}
+      .donvi b{text-transform:uppercase;}
+      .so-line{font-size:11pt; margin-top:4px;}
+      .trichyeu-inline{font-style:italic; font-size:12pt; margin-top:3px;}
+      .quochieu{text-align:center; flex:1;}
+      .vb-tieude{text-align:center; font-weight:bold; text-transform:uppercase; font-size:15pt;}
+      .vb-trichyeu, .vb-diadanh, .vb-diadanh-bottom{text-align:center; font-style:italic;}
+      .vb-diadanh{text-align:right;}
+      .vb-ky{display:flex; justify-content:space-between; margin-top:20px;}
+      .vb-ky.only-signature{justify-content:flex-end;}
+      .ky-hint{font-size:11pt; font-style:italic;}
+      .chuky{text-align:center;}
+    </style></head>
+    <body><div class="WordSection1">${content}</div></body></html>`;
+  const blob = new Blob(['﻿', htmlDoc], {type:'application/msword'});
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'van-ban-' + trichYeu.toLowerCase().replace(/[^a-z0-9]+/g,'-').substring(0,40) + '.doc';
+  link.click();
+}
+
+taoVanBan();
+
+// ============================================================
+// Chế độ Trợ Lý AI theo role (?role=...) — dùng cho các thẻ trong cong-chuc-xa.html.
+// Nếu không có tham số role hợp lệ, trang hoạt động y như trước (không đổi gì).
+// ============================================================
+(function () {
+  if (!window.CTX_AI) return;
+  var params = new URLSearchParams(window.location.search);
+  var roleSlug = params.get('role');
+  if (!roleSlug) return;
+  var role = window.CTX_AI.getRoleBySlug(roleSlug);
+  if (!role) return;
+
+  var mount = document.getElementById('aiRolePanel');
+  if (!mount) return;
+
+  var hasKey = !!window.CTX_AI.getApiKey();
+  var outputBlockHtml = role.outputMode === 'document'
+    ? '<p class="arp-status" id="arpStatus">Kết quả AI sẽ tự động điền vào khung văn bản bên dưới — bạn chỉnh sửa trực tiếp trước khi in/tải Word.</p>'
+    : '<div class="arp-output" id="arpOutput" hidden></div><p class="arp-status" id="arpStatus"></p>';
+
+  mount.innerHTML =
+    '<div class="ai-role-panel">' +
+      '<span class="arp-eyebrow">TRỢ LÝ AI CÔNG CHỨC XÃ</span>' +
+      '<div class="arp-head"><span class="ric">' + role.icon + '</span><h2>' + esc(role.title) + '</h2></div>' +
+      '<p class="arp-desc">' + esc(role.desc) + '</p>' +
+      '<div class="arp-key-row" id="arpKeyRow" ' + (hasKey ? 'hidden' : '') + '>' +
+        '<input type="password" id="arpKeyInput" placeholder="Dán Gemini API Key vào đây...">' +
+        '<p class="arp-key-hint">Key chỉ lưu trên trình duyệt máy này, dùng chung cho cả 15 trợ lý. Lấy miễn phí tại <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>.</p>' +
+      '</div>' +
+      '<label for="arpInput">' + esc(role.inputLabel) + '</label>' +
+      '<textarea id="arpInput" placeholder="' + esc(role.inputPlaceholder) + '"></textarea>' +
+      '<div class="arp-actions">' +
+        '<button class="arp-btn arp-btn-primary" id="arpGoBtn" type="button">✨ Soạn Bằng AI</button>' +
+        '<button class="arp-btn arp-btn-ghost" id="arpKeyToggleBtn" type="button" ' + (hasKey ? '' : 'hidden') + '>🔑 Đổi API Key</button>' +
+      '</div>' +
+      outputBlockHtml +
+    '</div>';
+
+  var keyRow = document.getElementById('arpKeyRow');
+  var keyInput = document.getElementById('arpKeyInput');
+  var keyToggleBtn = document.getElementById('arpKeyToggleBtn');
+  var goBtn = document.getElementById('arpGoBtn');
+  var input = document.getElementById('arpInput');
+  var status = document.getElementById('arpStatus');
+  var outputEl = document.getElementById('arpOutput');
+
+  if (keyInput) keyInput.value = window.CTX_AI.getApiKey();
+  if (keyToggleBtn) {
+    keyToggleBtn.addEventListener('click', function () {
+      keyRow.hidden = !keyRow.hidden;
+    });
+  }
+
+  goBtn.addEventListener('click', function () {
+    var userText = (input.value || '').trim();
+    if (!userText) {
+      status.textContent = '⚠️ Vui lòng nhập nội dung trước khi tạo.';
+      return;
+    }
+    var typedKey = keyInput ? keyInput.value.trim() : '';
+    if (typedKey) {
+      window.CTX_AI.setApiKey(typedKey);
+      if (keyRow) keyRow.hidden = true;
+      if (keyToggleBtn) keyToggleBtn.hidden = false;
+    }
+    if (!window.CTX_AI.getApiKey()) {
+      status.textContent = '⚠️ Vui lòng nhập Gemini API Key ở trên trước khi tạo.';
+      if (keyRow) keyRow.hidden = false;
+      return;
+    }
+
+    goBtn.disabled = true;
+    status.textContent = '⏳ AI đang soạn nội dung, vui lòng đợi...';
+    if (outputEl) outputEl.hidden = true;
+
+    window.CTX_AI.callGemini(role.systemPrompt, userText, function (err, text) {
+      goBtn.disabled = false;
+      if (err) {
+        status.textContent = '❌ Lỗi: ' + err.message + ' — kiểm tra lại API Key hoặc thử lại.';
+        return;
+      }
+      if (role.outputMode === 'document') {
+        var loaiSel = document.getElementById('loaiVanBan');
+        if (loaiSel && role.vanBanType) {
+          loaiSel.value = role.vanBanType;
+          loaiSel.dispatchEvent(new Event('change'));
+        }
+        var noiDungEl = document.getElementById('noiDungChinh');
+        if (noiDungEl) noiDungEl.value = text;
+        if (typeof taoVanBan === 'function') taoVanBan();
+        status.textContent = '✅ Đã điền nội dung AI vào khung văn bản bên dưới — kiểm tra kỹ trước khi in/tải.';
+      } else {
+        if (outputEl) {
+          outputEl.textContent = text;
+          outputEl.hidden = false;
+        }
+        status.textContent = '✅ Hoàn tất — nội dung do AI tạo, vui lòng kiểm tra lại trước khi sử dụng chính thức.';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
