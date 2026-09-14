@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bộ 40 Lệnh Tạo Ảnh AI — Người Trao Giải Pháp</title>
+<meta name="description" content="Bộ 40 lệnh tạo ảnh AI một chạm: billboard 3D, Meta Ads, newspaper ad, bất động sản, solar, giáo dục và nội dung.">
+<style>
+:root{--navy:#0c2d52;--blue:#0866ff;--gold:#f4b400;--bg:#f5f8fc;--card:#fff;--muted:#64748b;--line:#dfe7f1;--ok:#0f9d58}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#122033}.wrap{max-width:1180px;margin:auto;padding:0 18px}.top{background:linear-gradient(135deg,#082848,#0d4c82);color:#fff;padding:18px 0;position:sticky;top:0;z-index:20;box-shadow:0 4px 18px #0002}.topin{display:flex;gap:16px;align-items:center;justify-content:space-between}.brand{font-weight:800;font-size:18px}.brand small{display:block;font-weight:500;opacity:.8;font-size:12px;margin-top:3px}.home{color:#fff;text-decoration:none;border:1px solid #ffffff55;border-radius:10px;padding:9px 12px;font-size:14px}.hero{padding:42px 0 24px}.hero h1{font-size:clamp(30px,5vw,52px);line-height:1.05;margin:0;color:var(--navy)}.hero h1 span{color:var(--blue)}.hero p{max-width:800px;color:#44566c;font-size:17px;line-height:1.6}.notice{background:#fff8df;border:1px solid #f4d46b;border-radius:14px;padding:14px 16px;line-height:1.5;margin:16px 0}.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:20px 0}.search{flex:1;min-width:240px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;font-size:15px;background:white}.chip{border:1px solid var(--line);background:#fff;padding:10px 12px;border-radius:999px;cursor:pointer;font-weight:700;color:#334155}.chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;padding-bottom:54px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:0 6px 22px #0b2b4d0b;display:flex;flex-direction:column;min-height:215px}.tag{font-size:11px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.5px}.tag.tested{color:var(--ok)}.cmd{font-family:Consolas,monospace;font-weight:800;font-size:20px;color:var(--navy);margin:9px 0}.name{font-weight:800;font-size:16px;margin-bottom:6px}.desc{color:var(--muted);line-height:1.45;font-size:14px;flex:1}.actions{display:flex;gap:8px;margin-top:14px}.copy{flex:1;border:0;background:var(--blue);color:#fff;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer}.copy:hover{filter:brightness(.95)}.testedbadge{background:#eaf8f0;color:#0b7b43;border-radius:999px;padding:5px 8px;font-size:11px;font-weight:800}.footer{background:#0a2746;color:#cbd5e1;padding:26px 0;text-align:center;line-height:1.6}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#0f172a;color:white;padding:11px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.2s;z-index:50}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.grid{grid-template-columns:1fr}.topin{align-items:flex-start}.hero{padding-top:28px}.hero p{font-size:15px}.cmd{font-size:19px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap topin"><div class="brand">VÕ HỒNG THẮNG · NGƯỜI TRAO GIẢI PHÁP<small>Bộ lệnh tạo ảnh AI 1 chạm</small></div><a class="home" href="./">← Trang chủ</a></div></header>
+<main class="wrap">
+<section class="hero">
+<h1><span>40 LỆNH</span> TẠO ẢNH AI</h1>
+<p>Tải ảnh lên ChatGPT, chọn lệnh phù hợp rồi sao chép và gửi. 4 lệnh đầu là các lệnh đã test trực tiếp; các lệnh còn lại là shortcut do “Người Trao Giải Pháp” quy ước để xây workflow riêng.</p>
+<div class="notice"><b>Cách dùng:</b> 1) Tải ảnh lên ChatGPT → 2) Chọn một lệnh dưới đây → 3) Bấm <b>Sao chép</b> → 4) Dán lệnh vào ChatGPT. Với các shortcut tự tạo, kết quả ổn định nhất khi chúng được ánh xạ với prompt template trong GPT/app riêng.</div>
+<div class="bar"><input id="q" class="search" placeholder="Tìm lệnh: billboard, solar, bất động sản, reel..." oninput="render()"><button class="chip active" data-cat="all">Tất cả</button><button class="chip" data-cat="ads">Quảng cáo</button><button class="chip" data-cat="product">Sản phẩm</button><button class="chip" data-cat="property">BĐS & Solar</button><button class="chip" data-cat="edu">Giáo dục & Nội dung</button></div>
+</section>
+<section id="grid" class="grid"></section>
+</main>
+<div id="toast" class="toast">Đã sao chép lệnh</div>
+<footer class="footer"><div class="wrap"><b>Người Trao Giải Pháp</b><br>Ứng dụng AI vào công việc thực tế — dễ dùng, làm được ngay.</div></footer>
+<script>
+const tools=[
+['/3Dbillboard','Biển quảng cáo 3D','Billboard 3D/anamorphic ngoài trời, chủ thể nổi khỏi khung.','ads',1],
+['/metaad','Quảng cáo Meta','Creative quảng cáo Facebook/Instagram chuyên nghiệp.','ads',1],
+['/premiumshowcase','Showcase cao cấp','Showcase cao cấp, ánh sáng studio/premium.','ads',1],
+['/newspaperad','Quảng cáo phong cách báo chí','Trang báo/editorial quảng cáo, headline + ảnh + nhiều cột.','ads',1],
+['/productad','Quảng cáo sản phẩm','Quảng cáo sản phẩm thương mại, tập trung lợi ích và CTA.','ads',0],
+['/luxuryad','Quảng cáo sang trọng','Phong cách cao cấp, tối giản, premium.','ads',0],
+['/brandposter','Poster thương hiệu','Poster nhận diện thương hiệu cá nhân/doanh nghiệp.','ads',0],
+['/eventposter','Poster sự kiện','Poster sự kiện, hội thảo hoặc khai trương.','ads',0],
+['/facebookcover','Ảnh bìa Facebook','Ảnh bìa Facebook theo nhận diện thương hiệu.','ads',0],
+['/reelcover','Ảnh bìa Reel','Ảnh bìa Reel 9:16, hook lớn, dễ đọc trên điện thoại.','ads',0],
+['/productphoto','Ảnh sản phẩm studio','Ảnh sản phẩm studio sạch, chân thực, thương mại.','product',0],
+['/lifestylead','Lifestyle Ad','Đặt sản phẩm vào bối cảnh đời sống phù hợp khách hàng.','product',0],
+['/beforeafter','Before / After','Bố cục trước–sau rõ ràng, không làm sai bản chất sản phẩm.','product',0],
+['/infographic','Infographic','Infographic trực quan từ dữ liệu hoặc nội dung cung cấp.','product',0],
+['/catalogad','Catalogue','Trang catalogue sản phẩm gọn, dễ đọc.','product',0],
+['/packshot','Packshot','Packshot nền sạch, ánh sáng studio, giữ hình dáng sản phẩm.','product',0],
+['/heroimage','Hero Website','Hero image cho landing page hoặc website.','product',0],
+['/socialpost','Social Post','Ảnh bài đăng mạng xã hội, bố cục ưu tiên mobile.','product',0],
+['/storyad','Story Ad','Creative Story/Reel dọc 9:16.','product',0],
+['/mockupad','Mockup','Đưa thiết kế/sản phẩm vào mockup sử dụng thực tế.','product',0],
+['/realestatead','Quảng cáo BĐS','Quảng cáo BĐS; không tự bịa giá, pháp lý hoặc vị trí.','property',0],
+['/houseposter','Poster nhà đất','Poster bán nhà/đất từ dữ liệu người dùng cung cấp.','property',0],
+['/propertyreel','Reel BĐS','Ảnh cover/visual cho Reel giới thiệu bất động sản.','property',0],
+['/propertyluxury','BĐS cao cấp','Visual BĐS cao cấp, kiến trúc sang trọng.','property',0],
+['/propertymap','Bản đồ BĐS','Visual vị trí tiện ích; chỉ dùng dữ liệu vị trí đã xác minh.','property',0],
+['/solarad','Quảng cáo Solar','Quảng cáo điện mặt trời, kỹ thuật hiện đại.','property',0],
+['/solarposter','Poster Solar','Poster hệ thống solar, hybrid hoặc lưu trữ.','property',0],
+['/solarhero','Hero Solar','Hero image website điện mặt trời.','property',0],
+['/solarreel','Reel Solar','Cover Reel điện mặt trời 9:16.','property',0],
+['/solarcase','Case Study Solar','Visual case study công trình; không tự bịa số tiết kiệm/hoàn vốn.','property',0],
+['/teacherad','Quảng cáo giáo viên','Poster/campaign dành cho giáo viên.','edu',0],
+['/lessonvisual','Minh họa bài học','Minh họa bài học trực quan, phù hợp lứa tuổi.','edu',0],
+['/worksheetcover','Bìa phiếu ôn luyện','Bìa phiếu ôn luyện hoặc bài tập.','edu',0],
+['/quizposter','Poster Quiz','Poster mini game hoặc quiz học tập.','edu',0],
+['/classroomposter','Poster lớp học','Poster lớp học, quy tắc hoặc chủ đề giáo dục.','edu',0],
+['/youtube-thumb','Thumbnail YouTube','Thumbnail nổi bật, ít chữ, tương phản tốt.','edu',0],
+['/aiavatarposter','Poster thương hiệu AI','Poster thương hiệu cá nhân với chủ đề AI.','edu',0],
+['/quotevisual','Quote Visual','Ảnh trích dẫn/quote theo nhận diện thương hiệu.','edu',0],
+['/cinematicposter','Poster điện ảnh','Poster cinematic, ánh sáng điện ảnh.','edu',0],
+['/magazinecover','Bìa tạp chí','Bìa tạp chí chuyên nghiệp với ảnh chủ thể.','edu',0]
+];
+let cat='all';
+document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');cat=b.dataset.cat;render()});
+function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function render(){const q=document.getElementById('q').value.trim().toLowerCase();const list=tools.filter(t=>(cat==='all'||t[3]===cat)&&(!q||(`${t[0]} ${t[1]} ${t[2]}`).toLowerCase().includes(q)));document.getElementById('grid').innerHTML=list.map(t=>`<article class="card"><div class="tag ${t[4]?'tested':''}">${t[4]?'✓ Đã test':'Shortcut template'}</div><div class="cmd">${esc(t[0])}</div><div class="name">${esc(t[1])}</div><div class="desc">${esc(t[2])}</div><div class="actions"><button class="copy" onclick="copyCmd('${t[0]}')">📋 Sao chép lệnh</button>${t[4]?'<span class="testedbadge">Đẹp ✓</span>':''}</div></article>`).join('')||'<p>Không tìm thấy lệnh phù hợp.</p>'}
+async function copyCmd(s){try{await navigator.clipboard.writeText(s)}catch(e){const ta=document.createElement('textarea');ta.value=s;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}const t=document.getElementById('toast');t.textContent='Đã sao chép: '+s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1600)}
+render();
+</script>
+</body>
+</html>
