@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Học Nhẹ AI giúp phụ huynh và giáo viên tạo phiếu luyện Toán, Tiếng Việt lớp 2–5, chấm bài và in A4 ngay trên trình duyệt.">
+  <meta name="theme-color" content="#102a63">
+  <title>Học Nhẹ AI — Phiếu luyện Toán & Tiếng Việt lớp 2–5</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%2312355b%22/><path d=%22M18 17h28v32H18z%22 fill=%22white%22/><path d=%22M24 25h16M24 32h16M24 39h10%22 stroke=%22%23149c8c%22 stroke-width=%224%22 stroke-linecap=%22round%22/></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#workspace" aria-label="Học Nhẹ AI, về đầu trang">
+      <span class="brand-mark" aria-hidden="true">H</span>
+      <span><strong>Học Nhẹ AI</strong><small>Người Trao Giải Pháp</small></span>
+    </a>
+    <nav aria-label="Điều hướng chính">
+      <a href="#tools">6 công cụ</a>
+      <a href="#workspace">Tạo bài</a>
+      <a href="#progress">Tiến độ</a>
+      <a href="#plan">Kế hoạch</a>
+    </nav>
+    <button class="ghost small" id="clearDataTop" type="button">Xóa dữ liệu máy</button>
+  </header>
+
+  <main>
+    <section class="tool-hub" id="tools">
+      <div class="tool-hub-heading">
+        <div>
+          <span class="eyebrow">BỘ CÔNG CỤ HỌC NHẸ AI</span>
+          <h1>Sáu công cụ trong một nơi</h1>
+          <p>Chọn công cụ cần dùng. Mọi tính năng hoạt động ngay trên thiết bị, không cần API.</p>
+        </div>
+        <span class="beta-pill">V1 · Miễn phí thử nghiệm</span>
+      </div>
+      <div class="tool-grid">
+        <button class="tool-card math-card" type="button" data-tool="math">
+          <span class="tool-icon" aria-hidden="true">∑</span><span class="tool-number">01</span>
+          <strong>Phiếu Toán</strong><small>Tạo bài theo lớp, chủ đề và mức độ.</small><b>Mở công cụ →</b>
+        </button>
+        <button class="tool-card vietnamese-card" type="button" data-tool="vietnamese">
+          <span class="tool-icon" aria-hidden="true">Aa</span><span class="tool-number">02</span>
+          <strong>Phiếu Tiếng Việt</strong><small>Ôn từ, câu, chính tả và đọc hiểu.</small><b>Mở công cụ →</b>
+        </button>
+        <button class="tool-card practice-card" type="button" data-tool="practice">
+          <span class="tool-icon" aria-hidden="true">✓</span><span class="tool-number">03</span>
+          <strong>Làm bài trực tuyến</strong><small>Làm ngay, chấm điểm và lưu kết quả.</small><b>Bắt đầu làm →</b>
+        </button>
+        <button class="tool-card explain-card" type="button" data-tool="explain">
+          <span class="tool-icon" aria-hidden="true">?</span><span class="tool-number">04</span>
+          <strong>Giải thích từng bước</strong><small>Chọn một câu và xem cách làm rõ ràng.</small><b>Xem hướng dẫn →</b>
+        </button>
+        <button class="tool-card analysis-card" type="button" data-tool="analysis">
+          <span class="tool-icon" aria-hidden="true">◎</span><span class="tool-number">05</span>
+          <strong>Phân tích lỗi sai</strong><small>Biết câu nào sai và phần nào cần luyện lại.</small><b>Xem phân tích →</b>
+        </button>
+        <button class="tool-card plan-card" type="button" data-tool="plan">
+          <span class="tool-icon" aria-hidden="true">7</span><span class="tool-number">06</span>
+          <strong>Kế hoạch 7 ngày</strong><small>Lập lịch 10–15 phút dựa trên kết quả.</small><b>Tạo kế hoạch →</b>
+        </button>
+      </div>
+    </section>
+
+    <section class="hero" id="workspace">
+      <div class="hero-copy">
+        <span class="eyebrow">CÔNG CỤ 01–03</span>
+        <h2>Tạo bài luyện vừa sức<br>trong vài giây.</h2>
+        <p>Phiếu Toán và Tiếng Việt lớp 2–5 dành cho phụ huynh kèm con tại nhà và giáo viên chuẩn bị bài tập nhanh.</p>
+        <div class="trust-row">
+          <span>✓ Không cần đăng nhập</span>
+          <span>✓ Không gửi dữ liệu trẻ em</span>
+          <span>✓ In A4 miễn phí</span>
+        </div>
+      </div>
+
+      <div class="builder-card" aria-labelledby="builder-title">
+        <div class="card-heading">
+          <div>
+            <span class="step-number">01</span>
+            <h2 id="builder-title">Chọn bài cần luyện</h2>
+          </div>
+          <span class="status-dot">Sẵn sàng</span>
+        </div>
+
+        <fieldset class="role-switch">
+          <legend>Bạn đang dùng với vai trò</legend>
+          <label><input type="radio" name="role" value="parent" checked><span>Phụ huynh</span></label>
+          <label><input type="radio" name="role" value="teacher"><span>Giáo viên</span></label>
+        </fieldset>
+        <p class="role-hint" id="roleHint">Tạo một buổi luyện ngắn để cùng con học tại nhà.</p>
+
+        <div class="form-grid">
+          <label>Lớp
+            <select id="grade">
+              <option value="2">Lớp 2</option>
+              <option value="3">Lớp 3</option>
+              <option value="4">Lớp 4</option>
+              <option value="5">Lớp 5</option>
+            </select>
+          </label>
+          <label>Môn
+            <select id="subject">
+              <option value="math">Toán</option>
+              <option value="vietnamese">Tiếng Việt</option>
+            </select>
+          </label>
+          <label class="wide">Chủ đề
+            <select id="topic"></select>
+          </label>
+          <label>Mức độ
+            <select id="level">
+              <option value="basic">Cơ bản</option>
+              <option value="mixed" selected>Vừa sức</option>
+              <option value="challenge">Thử thách</option>
+            </select>
+          </label>
+          <label id="amountLabel">Thời lượng
+            <select id="amount">
+              <option value="6">Khoảng 10 phút</option>
+              <option value="10" selected>Khoảng 15 phút</option>
+              <option value="14">Khoảng 20 phút</option>
+            </select>
+          </label>
+          <label class="wide" id="studentNameWrap">Tên gọi của con <span>(không bắt buộc)</span>
+            <input id="studentName" maxlength="30" autocomplete="off" placeholder="Ví dụ: Minh Anh">
+          </label>
+        </div>
+        <button class="primary generate" id="generateBtn" type="button">Tạo phiếu luyện ngay <span aria-hidden="true">→</span></button>
+        <p class="privacy-note">Mọi lựa chọn và kết quả chỉ lưu trên thiết bị này.</p>
+      </div>
+    </section>
+
+    <section class="paper-section" id="paperSection" hidden aria-live="polite">
+      <div class="section-intro">
+        <div>
+          <span class="eyebrow">PHIẾU LUYỆN VỪA TẠO</span>
+          <h2 id="paperTitle">Bài luyện</h2>
+          <p id="paperMeta"></p>
+        </div>
+        <div class="paper-actions">
+          <button class="ghost" id="newVersionBtn" type="button">Đổi bộ câu hỏi</button>
+          <button class="ghost" id="printBtn" type="button">In / Lưu PDF</button>
+        </div>
+      </div>
+
+      <article class="paper" id="printArea">
+        <header class="paper-header">
+          <div>
+            <strong>HỌC NHẸ AI</strong>
+            <span>Phiếu luyện tập tại nhà</span>
+          </div>
+          <div class="student-line">Họ tên: <span id="paperStudent">________________</span></div>
+        </header>
+        <div class="paper-title">
+          <h3 id="sheetTitle"></h3>
+          <p id="sheetSubtitle"></p>
+        </div>
+        <form id="quizForm">
+          <ol class="question-list" id="questionList"></ol>
+        </form>
+        <section class="answer-key" id="answerKey" hidden>
+          <h4>Đáp án và gợi ý</h4>
+          <ol id="answerList"></ol>
+        </section>
+        <footer class="paper-footer">Nội dung luyện tập tham khảo · hochnhe.ai · Dữ liệu lưu cục bộ</footer>
+      </article>
+
+      <div class="grading-bar">
+        <div id="scoreBox" class="score-box" hidden></div>
+        <div class="grading-actions">
+          <button class="ghost" id="answerBtn" type="button">Xem đáp án</button>
+          <button class="primary" id="gradeBtn" type="button">Chấm bài</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="coach-section" id="coachSection">
+      <article class="coach-card explain-panel" id="explain">
+        <div class="coach-heading">
+          <span class="coach-icon">04</span>
+          <div><span class="eyebrow">GỢI Ý HỌC TẬP</span><h2>Giải thích từng bước</h2></div>
+        </div>
+        <p>Hãy tạo một phiếu, sau đó chọn câu cần xem. Công cụ sẽ chỉ ra dữ kiện, cách suy nghĩ và đáp án.</p>
+        <div class="coach-controls">
+          <label>Chọn câu
+            <select id="explainQuestion"><option value="">Chưa có phiếu luyện</option></select>
+          </label>
+          <button class="primary" id="explainBtn" type="button" disabled>Giải thích câu này</button>
+        </div>
+        <div class="explain-output empty-panel" id="explainOutput">
+          <span aria-hidden="true">?</span><p>Phần giải thích sẽ xuất hiện ở đây.</p>
+        </div>
+      </article>
+
+      <article class="coach-card analysis-panel" id="analysis">
+        <div class="coach-heading">
+          <span class="coach-icon">05</span>
+          <div><span class="eyebrow">SAU KHI CHẤM BÀI</span><h2>Phân tích lỗi sai</h2></div>
+        </div>
+        <p>Không chỉ báo điểm: công cụ tổng hợp câu sai, câu bỏ trống và đề xuất phần cần luyện tiếp.</p>
+        <div class="analysis-output empty-panel" id="analysisOutput">
+          <span aria-hidden="true">◎</span><p>Chấm một phiếu để xem phân tích.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="plan-section" id="plan">
+      <div class="plan-intro">
+        <span class="eyebrow light">CÔNG CỤ 06</span>
+        <h2>Kế hoạch luyện 7 ngày</h2>
+        <p>Mỗi ngày 10–15 phút. Kế hoạch ưu tiên môn và chủ đề có điểm thấp trong lịch sử trên thiết bị.</p>
+        <button class="plan-button" id="createPlanBtn" type="button">Tạo kế hoạch 7 ngày <span>→</span></button>
+        <small>Có thể đánh dấu từng ngày đã hoàn thành.</small>
+      </div>
+      <div class="plan-workspace">
+        <div class="plan-empty" id="planEmpty">
+          <span>7</span><strong>Chưa có kế hoạch</strong>
+          <p>Tạo kế hoạch sau khi làm một bài sẽ phù hợp hơn. Bạn vẫn có thể tạo ngay.</p>
+        </div>
+        <div class="day-grid" id="dayGrid" hidden></div>
+      </div>
+    </section>
+
+    <section class="progress-section" id="progress">
+      <div class="section-intro">
+        <div>
+          <span class="eyebrow">LƯU TRÊN THIẾT BỊ</span>
+          <h2>Tiến độ gần đây</h2>
+          <p>Kết quả không cần tài khoản và không rời khỏi trình duyệt của bạn.</p>
+        </div>
+        <button class="text-button" id="clearHistoryBtn" type="button">Xóa lịch sử</button>
+      </div>
+      <div class="stats-grid">
+        <article><span id="totalSessions">0</span><small>Lượt đã làm</small></article>
+        <article><span id="averageScore">—</span><small>Điểm trung bình</small></article>
+        <article><span id="bestScore">—</span><small>Điểm tốt nhất</small></article>
+        <article><span id="lastSubject">—</span><small>Môn gần nhất</small></article>
+      </div>
+      <div class="history-empty" id="historyEmpty">
+        <span aria-hidden="true">✦</span>
+        <p>Chưa có kết quả. Hãy tạo và chấm phiếu đầu tiên.</p>
+      </div>
+      <div class="history-list" id="historyList"></div>
+    </section>
+
+    <section class="guide-section" id="guide">
+      <div>
+        <span class="eyebrow">DỄ DÙNG NGAY LẦN ĐẦU</span>
+        <h2>Ba bước cho một buổi học gọn nhẹ</h2>
+      </div>
+      <ol class="guide-grid">
+        <li><span>1</span><strong>Chọn nhu cầu</strong><p>Chọn lớp, môn, chủ đề và mức độ phù hợp.</p></li>
+        <li><span>2</span><strong>Làm trên máy hoặc giấy</strong><p>Điền trực tiếp để chấm tự động, hoặc in phiếu A4.</p></li>
+        <li><span>3</span><strong>Xem đáp án, luyện lại</strong><p>Xem giải thích ngắn và tạo bộ câu hỏi mới.</p></li>
+      </ol>
+    </section>
+
+    <section class="scope-section">
+      <div>
+        <span class="eyebrow light">PHẠM VI SẢN PHẨM</span>
+        <h2>Một công cụ hỗ trợ học tập,<br>không thay thế giáo viên.</h2>
+      </div>
+      <p>Học Nhẹ AI cung cấp phiếu luyện và đáp án tham khảo. Nội dung cần được người lớn kiểm tra trước khi dùng trong lớp học chính thức. Chúng tôi không tổ chức dạy trực tuyến, không tư vấn chẩn đoán năng lực và không cam kết kết quả học tập.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div><strong>Học Nhẹ AI</strong><span>Sản phẩm thử nghiệm của Người Trao Giải Pháp</span></div>
+    <p><a href="phuong-phap.html">Nguồn & phương pháp</a> · <a href="quyen-rieng-tu.html">Quyền riêng tư</a> · <a href="dieu-khoan.html">Điều khoản</a> · <span id="year"></span></p>
+  </footer>
+
+  <dialog id="confirmDialog">
+    <form method="dialog">
+      <h3>Xóa dữ liệu trên thiết bị?</h3>
+      <p>Lịch sử kết quả và lựa chọn đã lưu sẽ bị xóa. Hành động này không thể hoàn tác.</p>
+      <div>
+        <button class="ghost" value="cancel">Giữ lại</button>
+        <button class="danger" value="confirm">Xóa dữ liệu</button>
+      </div>
+    </form>
+  </dialog>
+
+  <noscript>Trang này cần JavaScript để tạo và chấm phiếu luyện.</noscript>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
